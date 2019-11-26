@@ -25,7 +25,7 @@ SECRET_KEY = 'ojx1dline#l9)*vna&0v(y21x%iheq=ib)jks7th2a0yk2@%!+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'scatuaz.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'scatuaz',
+        'USER': 'tigrito',
+        'PASSWORD': 'tigrito123@',
+        'HOST': '127.0.0.1',
+        'PORT': 3306
     }
 }
 
