@@ -5,7 +5,7 @@ Característica: Buscar un trabajador
         Dado que ingreso a la vista de "trabajador"
         Y ingreso el nombre de "Juan" en el buscador
         Cuando doy clic en "buscar"
-        Entonces puedo ver "Juan Pérez Marila", "Jaime Manuel Sanchez Gutierrez", "Jaime Torres Vela" en la lista de resultados
+        Entonces puedo ver "Juan Pérez Marila", "Jaime Manuel Sanchez Gutierrez", "Jaime Torres Vela" en la vista de resultados
 
     # Escenario: Buscar un trabajador con nombre Jaim
     #     Dado que ingreso el nombre Jaim
