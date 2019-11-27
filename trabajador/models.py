@@ -1,22 +1,23 @@
 from django.db import models
 
+OPCIONES_SEXO = [
+    ('M', 'Masculino'),
+    ('F', 'Femenino'),
+]
+
+OPCIONES_ESTADO_CIVIL = [
+    ('S', 'Soltero'),
+    ('C', 'Casado'),
+]
+
+OPCIONES_STATUS = [
+    ('A', 'Activo'),
+    ('I', 'Inactivo'),
+]
+
 # Create your models here.
 
 class Trabajador(models.Model):
-    OPCIONES_SEXO = [
-        ('M', 'Masculino'),
-        ('F', 'Femenino'),
-    ]
-
-    OPCIONES_ESTADO_CIVIL = [
-        ('S', 'Soltero'),
-        ('C', 'Casado'),
-    ]
-
-    OPCIONES_STATUS = [
-        ('A', 'Activo'),
-        ('I', 'Inactivo'),
-    ]
 
     nombre = models.CharField(max_length=100)
     paterno = models.CharField(max_length=100)
