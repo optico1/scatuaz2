@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .models import Buscar, Trabajador
 from .forms import TrabajadorForm
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 # Create your views here.
-
+#class ListaDino(PermissionRequiredMixin, ListView):
 class ListaTrabajador(ListView):
     template_name = 'lista_trabajador.html'
     model = Trabajador

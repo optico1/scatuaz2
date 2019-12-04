@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ingresar{% endblock %}
+
+{% block contenido %}
+<h1 align="center">Iniciar Sesi&oacute;n</h1>
+    {% if mensaje %}
+        {{mensaje}}
+    {% endif %}
+    <form method="post" class="form " align="center">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Ingresar</button>
+    </form>
+{% endblock contenido %}
