@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Nuevo Usuario{% endblock %}
+
+{% block contenido %}
+    <h1 align="center">Nuevo Usuario</h1>
+    {% if form.errors or form_usuario.errors %}
+      <div class ="alert alert-warning">
+          {{form.errors}}
+          {{form_usuario.errors}}
+      </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" align ="justify">
+        {% csrf_token %}
+        {{ usuario_form.as_p }}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+
+        <a href="{% url "ingresar" %}" class="btn btn-secondary">Ingresar</a>
+
+    </form>
+{% endblock contenido %}
+

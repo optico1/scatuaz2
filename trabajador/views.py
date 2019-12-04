@@ -3,9 +3,9 @@ from django.db.models import Q
 from django.views.generic import ListView
 from .models import Buscar, Trabajador
 from .forms import TrabajadorForm
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 # Create your views here.
-
 def buscar_trabajador(request):
     query = request.GET.get('buscador')
     trabajadores = Trabajador.objects.filter(
