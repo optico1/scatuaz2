@@ -5,14 +5,6 @@ from .forms import TrabajadorForm
 
 # Create your views here.
 
-class ListaTrabajador(ListView):
-    template_name = 'lista_trabajador.html'
-    model = Trabajador
-
-class BuscarTrabajador(ListView):
-    template_name = 'buscar_trabajador.html'
-    model = Buscar
-
 def buscar_trabajador(request):
     return render(request, 'buscar_trabajador.html', {})
 
@@ -20,6 +12,7 @@ def lista_trabajador(request):
     trabajadores = Trabajador.objects.all()
     context = {
         'trabajadores': trabajadores,
+        'llave': 'Esta llave es secreta',
     }
 
     return render(request, 'lista_trabajador.html', context)
@@ -35,7 +28,13 @@ def agregar_trabajador(request):
     return render(request, 'agregar_trabajador.html', {'form':form})
 
 def eliminar_trabajador(request, id):
-    pass
+    try:
+        trabajador = Trabajador.objects.get(pk=id)
+        trabajador.delete()
+        return redirect('lista_trabajador')
+    except Trabajador.DoesNotExist:
+        trabajador = Trabajador.objects.all()
+        return render(request, 'lista_trabajador.html')
 
 def modificar_trabajador(request, id):
     pass

@@ -9,11 +9,11 @@ from unittest import TestCase
 def browser_firefox(context):
     # -- BEHAVE-FIXTURE: Similar to @contextlib.contextmanager
     context.driver = Firefox()
-    context.url = 'http://192.168.33.10:8000/'
+    context.url = 'http://192.168.33.10:8080/'
     context.test = TestCase()
     yield context.driver
     # -- CLEANUP-FIXTURE PART:
-    # context.driver.quit()
+    context.driver.quit()
 
 
 def before_all(context):

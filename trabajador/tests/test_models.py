@@ -1,35 +1,67 @@
 from django.test import TestCase
 from trabajador.models import Trabajador
 from django.core.exceptions import ValidationError
+import unittest
 
+class TestModels(unittest.TestCase):
+    def test_return_object_trabajador(self):
+        trabajador = Trabajador(
+            nombre='Juan',
+            paterno='Ramos',
+            materno='Garcia',
+            rfc='RAGJ7701229W3',
+            curp='RAGJ770122HZSMRN04',
+        )
+        trabajador.save()
+        self.assertEqual(trabajador.nombre, trabajador.__str__())
+    
 
-# class TestModels(TestCase):
+    def test_max_length_en_nombre(self):
 
-#     def test_agrega_trabajador(self):
-#         trabajador = Trabajador.objects.create(
-#             nombre='Juan',
-#             paterno='Ramos',
-#             materno='Garcia',
-#             rfc='RAGJ7701229W3',
-#             curp='RAGJ770122HZSMRN04',
-#             sexo='Masculino',
-#             estado_civil='Casado',
-#             status='Activo',
-#             fecha_nacimiento='22/01/1977',
-#             pais_nacimiento='Mexico',
-#             estado_nacimiento='32',
-#             municipio_nacimiento='56',
-#             lugar_nacimiento='Hospital San Miguel',
-#             pais_residencia='Mexico',
-#             estado_residencia='32',
-#             municipio_residencia='56',
-#             localidad_reside='Zacatecas',
-#             calle='Paseo San Carlos 130',
-#             colonia='Fraccionamiento San Fernando',
-#             cp='98057',
-#             telefono='1564145',
-#             email='johndan@hotmail.com',
-#         )
-#         trabajador_uno = Trabajador.objects.first()
+        trabajador = Trabajador(
+            nombre='Juan',
+            paterno='Ramos',
+            materno='Garcia',
+            rfc='RAGJ7701229W3',
+            curp='RAGJ770122HZSMRN04',
+        )
+        
+        
+        self.assertLess(len(trabajador.nombre),100)
 
-#         self.assertEqual(trabajador, trabajador_uno)
+    def test_mas_de_la_max_length_en_nombre(self):
+
+        trabajador = Trabajador(
+            nombre='Juaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaan',
+            paterno='Ramos',
+            materno='Garcia',
+            rfc='RAGJ7701229W3',
+            curp='RAGJ770122HZSMRN04',
+        )
+        
+        
+        self.assertGreater(len(trabajador.nombre),100)
+
+    def test_insercion_del_trabajador(self):
+        trabajador = Trabajador(
+            nombre='Juan',
+            paterno='Ramos',
+            materno='Garcia',
+            rfc='RAGJ7901629W3',
+            curp='RAGJ770522HZSMRN04',
+        )
+        trabajador.save()
+
+        self.assertEqual(Trabajador.objects.all()[0], trabajador)
+
+    def test_no_insercion_del_trabajador_repetido(self):
+        trabajador = Trabajador(
+            nombre='Juan',
+            paterno='Ramos',
+            materno='Garcia',
+            rfc='REGJ7901629W3',
+            curp='REGJ770522HZSMRN04',
+        )
+        trabajador.save()
+
+        self.assertNotEqual(Trabajador.objects.all()[0], trabajador)
