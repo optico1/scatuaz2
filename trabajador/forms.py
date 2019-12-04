@@ -1,6 +1,7 @@
 from .models import Trabajador, OPCIONES_SEXO, OPCIONES_ESTADO_CIVIL, OPCIONES_STATUS
 from django.forms import ModelForm, Textarea, TextInput, NumberInput, Select, DateInput, DateField, EmailInput, SelectDateWidget
 
+
 class TrabajadorForm(ModelForm):
     class Meta:
         model = Trabajador

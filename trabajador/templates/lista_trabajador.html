@@ -1,31 +1,41 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
-  
-<h3>Lista Trabajadores</h3>
-<a href="{% url "agregar_trabajador" %}" class="btn btn-primary bt-sm">Agregar Trabajador</a>
-<table class="table table-striped mt-3">
-    <thead class="thead-dark">
-        <th>ID Trabajador</th>
-        <th>Paterno</th>
-        <th>Materno</th>
-        <th>Nombre</th>
-        <th>Opciones</th>
-    </thead>
-    <tbody>
-        {% for trabajador in trabajadores %}
-            <tr>
-                <td>{{trabajador.id}}</td>
-                <td>{{trabajador.paterno}}</td>
-                <td>{{trabajador.materno}}</td>
-                <td>{{trabajador.nombre}}</td>
-                <td>
-                    <a href="{% url "eliminar_trabajador" trabajador.id %}" class="btn btn-danger btn-sm">Eliminar</a>
-                    <a href="{% url "modificar_trabajador" trabajador.id %}" class="btn btn-success btn-sm">Modificar</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+<div class="row pt-5">
+    <div class="col">
+        <h1>Lista Trabajadores</h1>
+    </div>
+    <div class="col align-self-end">
+        <a href="{% url "agregar_trabajador" %}" class="btn btn-primary bt-sm float-right">Agregar Trabajador</a>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <table class="table table-striped table-dark">
+            <thead class="thead-dark">
+                <th>ID Trabajador</th>
+                <th>Paterno</th>
+                <th>Materno</th>
+                <th>Nombre</th>
+                <th>Opciones</th>
+            </thead>
+            <tbody>
+                {% for trabajador in trabajadores %}
+                    <tr>
+                        <td>{{trabajador.id}}</td>
+                        <td>{{trabajador.paterno}}</td>
+                        <td>{{trabajador.materno}}</td>
+                        <td>{{trabajador.nombre}}</td>
+                        <td>
+                            <a href="{% url "eliminar_trabajador" trabajador.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                            <a href="{% url "modificar_trabajador" trabajador.id %}" class="btn btn-success btn-sm">Editar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
 {% endblock contenido %}

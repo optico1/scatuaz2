@@ -42,6 +42,7 @@ class Trabajador(models.Model):
     telefono = models.CharField(max_length=10, null =True, blank=True)
     email = models.CharField(max_length=50, null =True, blank=True)
 
+
     def __str__(self):
         return self.nombre
 

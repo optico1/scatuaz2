@@ -1,12 +1,21 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from django.views.generic import ListView
 from .models import Buscar, Trabajador
 from .forms import TrabajadorForm
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 # Create your views here.
 
 def buscar_trabajador(request):
-    return render(request, 'buscar_trabajador.html', {})
+    query = request.GET.get('buscador')
+    trabajadores = Trabajador.objects.filter(
+        Q(nombre=query) | Q(paterno=query) | Q(materno=query) | Q(rfc=query)
+    )
+    context = {
+        'trabajadores': trabajadores,
+    }
+    return render(request, 'buscar_trabajador.html', context)
 
 def lista_trabajador(request):
     trabajadores = Trabajador.objects.all()
