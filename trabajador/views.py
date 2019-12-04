@@ -6,6 +6,7 @@ from .forms import TrabajadorForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 # Create your views here.
+
 def buscar_trabajador(request):
     query = request.GET.get('buscador')
     trabajadores = Trabajador.objects.filter(
@@ -20,6 +21,7 @@ def lista_trabajador(request):
     trabajadores = Trabajador.objects.all()
     context = {
         'trabajadores': trabajadores,
+        'llave': 'Esta llave es secreta',
     }
 
     return render(request, 'lista_trabajador.html', context)
@@ -35,9 +37,13 @@ def agregar_trabajador(request):
     return render(request, 'agregar_trabajador.html', {'form':form})
 
 def eliminar_trabajador(request, id):
-    trabajador = Trabajador.objects.get(pk=id)
-    trabajador.delete()
-    return redirect('lista_trabajador')
+    try:
+        trabajador = Trabajador.objects.get(pk=id)
+        trabajador.delete()
+        return redirect('lista_trabajador')
+    except Trabajador.DoesNotExist:
+        trabajador = Trabajador.objects.all()
+        return render(request, 'lista_trabajador.html')
 
 def modificar_trabajador(request, id):
     pass
