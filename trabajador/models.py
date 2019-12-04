@@ -1,48 +1,50 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
+OPCIONES_SEXO = [
+    ('M', 'Masculino'),
+    ('F', 'Femenino'),
+]
+
+OPCIONES_ESTADO_CIVIL = [
+    ('S', 'Soltero'),
+    ('C', 'Casado'),
+]
+
+OPCIONES_STATUS = [
+    ('A', 'Activo'),
+    ('I', 'Inactivo'),
+]
 
 # Create your models here.
 
 class Trabajador(models.Model):
-    OPCIONES_SEXO = [
-        ('M', 'Masculino'),
-        ('F', 'Femenino'),
-    ]
-
-    OPCIONES_ESTADO_CIVIL = [
-        ('S', 'Soltero'),
-        ('C', 'Casado'),
-    ]
-
-    OPCIONES_STATUS = [
-        ('A', 'Activo'),
-        ('I', 'Inactivo'),
-    ]
 
     nombre = models.CharField(max_length=100)
     paterno = models.CharField(max_length=100)
     materno = models.CharField(max_length=100)
-    rfc = models.CharField(max_length=13, unique=True)
+    rfc = models.CharField(max_length=13, unique=True, validators=[MinLengthValidator(13, 'Error de logitud')])
     curp = models.CharField(max_length=18, unique=True)
-    sexo = models.CharField(max_length=1, choices=OPCIONES_SEXO)
-    estado_civil = models.CharField(max_length=1, choices=OPCIONES_ESTADO_CIVIL)
-    status = models.CharField(max_length=1, choices=OPCIONES_STATUS)
-    fecha_nacimiento = models.DateField()
-    pais_nacimiento = models.CharField(max_length=100)
-    estado_nacimiento = models.PositiveSmallIntegerField()
-    municipio_nacimiento = models.PositiveSmallIntegerField()
-    lugar_nacimiento = models.CharField(max_length=100)
-    pais_residencia = models.CharField(max_length=100)
-    estado_residencia = models.PositiveSmallIntegerField()
-    municipio_residencia = models.PositiveSmallIntegerField()
-    localidad_reside = models.CharField(max_length=100)
-    calle = models.CharField(max_length=100)
-    colonia = models.CharField(max_length=100)
-    cp = models.CharField(max_length=6)
-    telefono = models.CharField(max_length=10)
-    email = models.CharField(max_length=50)
+    sexo = models.CharField(max_length=1, choices=OPCIONES_SEXO, null =True, blank=True)
+    estado_civil = models.CharField(max_length=1, choices=OPCIONES_ESTADO_CIVIL, null =True, blank=True)
+    status = models.CharField(max_length=1, choices=OPCIONES_STATUS, null =True, blank=True)
+    fecha_nacimiento = models.DateField( null =True, blank=True)
+    pais_nacimiento = models.CharField(max_length=100, null =True, blank=True)
+    estado_nacimiento = models.PositiveSmallIntegerField( null =True, blank=True)
+    municipio_nacimiento = models.PositiveSmallIntegerField( null =True, blank=True)
+    lugar_nacimiento = models.CharField(max_length=100, null =True, blank=True)
+    pais_residencia = models.CharField(max_length=100, null =True, blank=True)
+    estado_residencia = models.PositiveSmallIntegerField(null =True, blank=True)
+    municipio_residencia = models.PositiveSmallIntegerField(null =True, blank=True)
+    localidad_reside = models.CharField(max_length=100, null =True, blank=True)
+    calle = models.CharField(max_length=100, null =True, blank=True)
+    colonia = models.CharField(max_length=100, null =True, blank=True)
+    cp = models.CharField(max_length=6, null =True, blank=True)
+    telefono = models.CharField(max_length=10, null =True, blank=True)
+    email = models.CharField(max_length=50, null =True, blank=True)
+
 
     def __str__(self):
-        return self.paterno,self.materno,self.nombre
+        return self.nombre
 
 class Buscar(models.Model):
     pass

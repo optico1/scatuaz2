@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+<div class="row pt-5">
+    <div class="col">
+        <h3>Resultados de busqueda</h3>
+        {% if trabajadores|length > 0 %}
+        <p>{{ trabajadores|length }} resultados.</p>
+        {% endif %}
+    </div>
+    <div class="col align-self-end">
+        <a href="{% url "agregar_trabajador" %}" class="btn btn-primary bt-sm float-right">Agregar Trabajador</a>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        {% if trabajadores|length > 0 %}
+        <table class="table table-striped table-dark">
+            <thead class="thead-dark">
+                <th>ID Trabajador</th>
+                <th>Paterno</th>
+                <th>Materno</th>
+                <th>Nombre</th>
+                <th>RFC</th>
+                <th>Opciones</th>
+            </thead>
+            <tbody>
+                {% for trabajador in trabajadores %}
+                    <tr>
+                        <td>{{trabajador.id}}</td>
+                        <td>{{trabajador.paterno}}</td>
+                        <td>{{trabajador.materno}}</td>
+                        <td>{{trabajador.nombre}}</td>
+                        <td>{{trabajador.rfc}}</td>
+                        <td>
+                            <a href="{% url "eliminar_trabajador" trabajador.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                            <a href="{% url "modificar_trabajador" trabajador.id %}" class="btn btn-success btn-sm">Editar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <h2>No hay resultados</h2>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock contenido %}
