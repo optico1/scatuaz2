@@ -42,8 +42,12 @@ def eliminar_trabajador(request, id):
         trabajador.delete()
         return redirect('lista_trabajador')
     except Trabajador.DoesNotExist:
-        trabajador = Trabajador.objects.all()
-        return render(request, 'lista_trabajador.html')
+        trabajadores = Trabajador.objects.all()
+        context = {
+            'trabajadores': trabajadores,
+            'llave': 'Esta llave es secreta',
+        }
+        return render(request, 'lista_trabajador.html', context)
 
 def modificar_trabajador(request, id):
     pass
