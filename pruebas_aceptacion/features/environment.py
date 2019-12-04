@@ -13,7 +13,7 @@ def browser_firefox(context):
     context.test = TestCase()
     yield context.driver
     # -- CLEANUP-FIXTURE PART:
-    # context.driver.quit()
+    context.driver.quit()
 
 
 def before_all(context):
