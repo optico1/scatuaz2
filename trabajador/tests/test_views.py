@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 from trabajador.models import Trabajador
+from login.models import User
+from django.contrib.auth import login
 
 class TestView(TestCase):
 
@@ -206,6 +208,12 @@ class TestView(TestCase):
         self.client.post('/trabajador/agregar', data=data)
         self.assertEqual(Trabajador.objects.count(),0)
 
+    def test_mensaje_cuando_no_hay_trabajadores(self):
+        self.iniciar_sesion()
+
+        response = self.client.get('/trabajador')
+        self.assertInHTML('<h4>No hay registros.</h4>', response.content.decode("utf-8"))
+
     def agregar_trabajador1(self):
         Trabajador.objects.create(
             nombre='Salvador',
@@ -223,3 +231,7 @@ class TestView(TestCase):
             rfc='BMFA27182DS',
             curp='BMFA21873HJDSA98SS'
         )
+
+    def iniciar_sesion(self):
+        usuario = User.objects.create_user('tigrito', 'tigre@gmail.com', 'tigre123')
+        login(username='tigrito', password='tigre123')
