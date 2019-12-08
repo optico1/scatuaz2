@@ -48,7 +48,7 @@ class LoginForm(AuthenticationForm):
         min_length=5,
         widget=forms.TextInput({
             'class': 'form-control',
-            'placeholder': 'Nombre de usuario'
+            'placeholder': 'Nombre de usuario',
         }),
         error_messages={
             'required': 'Este campo es obligatorio',
@@ -61,7 +61,7 @@ class LoginForm(AuthenticationForm):
         min_length=8,
         widget=forms.PasswordInput({
             'class': 'form-control',
-            'placeholder': 'Contraseña'
+            'placeholder': 'Contraseña',
         }),
         error_messages={
             'required': 'Este campo es obligatorio',

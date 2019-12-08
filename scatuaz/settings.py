@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'trabajador',
     'login',
+    # 'behave_django'
 ]
 
 MIDDLEWARE = [
