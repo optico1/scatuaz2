@@ -3,17 +3,20 @@ Característica: Inicio de sesión de un usuario
     Quiero iniciar sesion haciendo uso de mis credenciales
     Para acceder a las funciones del sistema
 
-    Escenario: Iniciar sesion con usuario tigrito y con contraseña tigre123
-        Dado que ingreso el usuario "tigrito" y la contraseña "tigre123"
+    Escenario: Iniciar sesion con usuario tigre y con contraseña tigre123
+        Dado que ingreso a la vista de " "
+        Y ingreso el usuario "tigre" con la contraseña "tigre123"
         Cuando se realiza un inicio de sesion
-        Entonces puedo ver una bandera de "Bienvenido"
+        Entonces puedo ver un mensaje de "Lista Trabajadores"
     
-    Escenario: Iniciar sesion erroneamente con usuario tigrito y con contraseña ti542234
-        Dado que ingreso el usuario "tigrito" con la contraseña "ti542234"
+    Escenario: Iniciar sesion erroneamente con usuario tigre y con contraseña ti542234
+        Dado que ingreso a la vista de " "
+        Y ingreso el usuario "tigre" con la contraseña "ti542234"
         Cuando se realiza un inicio de sesion
-        Entonces puedo ver una bandera de "error"
+        Entonces puedo ver un mensaje de error "Credenciales invalidas"
     
     Escenario: Iniciar sesion sin usuario y contraseña 
-        Dado que no ingreso el usuario ni la contraseña
+        Dado que ingreso a la vista de " "
+        Y no ingreso usuario ni contraseña
         Cuando se realiza un inicio de sesion
-        Entonces me mantengo en la misma pagina
+        Entonces me mantengo en la misma vista

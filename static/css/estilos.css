@@ -1,13 +1,63 @@
-.voto-img{
-    width: 40px;
-    float: left;
-    margin-right: 3px;
-    display: block;
+.resaltar {
+    font-size: 2em;
+    color: #c82333;
 }
 
-.empty{
-    background-image: url('../images/star-empty.svg');
+.bg-grey {
+    background: #dddddd;
 }
-.empty:hover{
-    background-image: url('../images/star-filled.svg');
+
+td {
+    height: 100%;
+    padding: 0px;
+    overflow: hidden;
+}
+
+td a {
+    margin: -1em;
+    padding: 1em;
+    display: block;
+    text-decoration: none !important;
+}
+
+td a:hover {
+    color: white;
+}
+
+.r-click tr:hover {
+    background-color: #777777;
+}
+
+.bg-image {
+    background: linear-gradient(rgba(22, 22, 22, 0.7), rgba(50, 50, 50, 0.7)), url("images/scatuaz_bg.jpeg") !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    
+    display: block;
+
+    height: 100%;
+    width: 100%;
+    
+    position: fixed;
+
+    filter: blur(8px) !important;
+    -webkit-filter: blur(8px) !important;
+
+    transform: scale(1.1);
+}
+
+.space {
+    margin-top: 8rem;
+}
+
+.light-grey {
+    background: #eeeeee;
+}
+
+.make-short {
+    width: 60%;
+}
+
+.make-form-short {
+    width: 45%;
 }

@@ -2,8 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('registro', views.NuevoUsuario.as_view(), name='nuevo_usuario'),
-    path('ingresar', views.Login.as_view(), name='ingresar'),
-    path('home', views.Home.as_view(), name='home'),
-
+    path('', views.iniciar_sesion, name='iniciar_sesion'),
+    path('cerrar', views.cerrar_sesion, name='cerrar_sesion'),
 ]

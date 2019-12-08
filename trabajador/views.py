@@ -4,9 +4,11 @@ from django.views.generic import ListView
 from .models import Buscar, Trabajador
 from .forms import TrabajadorForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required
 def buscar_trabajador(request):
     query = request.GET.get('buscador')
     trabajadores = Trabajador.objects.filter(
@@ -17,6 +19,7 @@ def buscar_trabajador(request):
     }
     return render(request, 'buscar_trabajador.html', context)
 
+@login_required
 def lista_trabajador(request):
     trabajadores = Trabajador.objects.all()
     context = {
@@ -26,6 +29,7 @@ def lista_trabajador(request):
 
     return render(request, 'lista_trabajador.html', context)
 
+@login_required
 def agregar_trabajador(request):
     if request.method == 'POST':
         form = TrabajadorForm(request.POST)
@@ -36,6 +40,7 @@ def agregar_trabajador(request):
         form = TrabajadorForm()
     return render(request, 'agregar_trabajador.html', {'form':form})
 
+@login_required
 def eliminar_trabajador(request, id):
     try:
         trabajador = Trabajador.objects.get(pk=id)
@@ -49,5 +54,6 @@ def eliminar_trabajador(request, id):
         }
         return render(request, 'lista_trabajador.html', context)
 
+@login_required
 def modificar_trabajador(request, id):
     pass
