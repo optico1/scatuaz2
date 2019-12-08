@@ -63,8 +63,8 @@ def cambiar_contrasena(request, id):
     usuario = User.objects.get(pk=id)
     if request.method == 'POST':
         form = CambiarContrasenaForm(usuario, data=request.POST) 
-        print(form)
         if form.is_valid():
+            form.clean_new_password2()
             form.save()
             return redirect('lista_usuario')
     else:

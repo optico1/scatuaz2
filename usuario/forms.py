@@ -101,7 +101,7 @@ class CambiarContrasenaForm(SetPasswordForm):
     new_password1 = forms.CharField(
         max_length=16,
         min_length=8,
-        required=False,
+        required=True,
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control form-control-sm'
@@ -115,7 +115,7 @@ class CambiarContrasenaForm(SetPasswordForm):
     )
 
     new_password2 = forms.CharField(
-        required=False,
+        required=True,
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control form-control-sm'
@@ -124,6 +124,26 @@ class CambiarContrasenaForm(SetPasswordForm):
         label="Repita Nueva contraseña"
     )
 
+    def _init_(self, user, *args, **kwargs):
+        self.user = user
+        super(SetPasswordForm, self)._init_(*args, **kwargs)
+
+    def clean_new_password2(self):
+        password1 = self.cleaned_data.get('new_password1')
+        password2 = self.cleaned_data.get('new_password2')
+        if password1 and password2:
+            if password1 != password2:
+                raise forms.ValidationError(
+                    self.error_messages['password_mismatch'],
+                    code='password_mismatch',
+                )
+        return password2
+
+    def save(self, commit=True):
+        self.user.set_password(self.cleaned_data['new_password1'])
+        if commit:
+            self.user.save()
+        return self.user
 
 class ModificarUsuarioForm(UserChangeForm):
 
