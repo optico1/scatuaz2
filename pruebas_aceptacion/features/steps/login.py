@@ -1,11 +1,13 @@
 from behave import given, when, then
+from django.contrib.auth.models import User
 from django.test import TestCase
 import time
 
 #1
-@given(u'que ingreso el usuario "tigrito" y la contraseña "tigre123"')
+@given(u'que ingreso el usuario "tigre" y la contraseña "tigre123"')
 def step_impl(context):
-    login(context,'tigrito','tigre123')
+    crear(context,)
+    login(context,'tigre','tigre123')
     
 @when(u'se realiza un inicio de sesion')
 def step_impl(context):
@@ -17,10 +19,10 @@ def step_impl(context):
     context.test.assertEqual(mensaje.text,"Bienvenido")
 
 #2
-@given(u'que ingreso el usuario "tigrito" con la contraseña "ti542234"')
+@given(u'que ingreso el usuario "tigre" con la contraseña "ti542234"')
 def step_impl(context):
     time.sleep(2)
-    login(context,'tigrito','ti542234')
+    login(context,'tigre','ti542234')
 
 @then(u'puedo ver una bandera de "error"')
 def step_impl(context):
@@ -31,17 +33,19 @@ def step_impl(context):
 @given(u'que no ingreso el usuario ni la contraseña')
 def step_impl(context):
     time.sleep(2)
-    context.driver.get(context.url+'login/ingresar')
+    context.driver.get(context.url+'')
     context.driver.find_element_by_xpath('/html/body/div/form/button').click()
 
 @then(u'me mantengo en la misma pagina')
 def step_impl(context):
-    context.test.assertEqual(str(context.url),"http://192.168.33.10:8000/")
+    context.test.assertEqual(str(context.url),"http://localhost:8000/")
 
 
 #login
 def login(context,usr,pas):
-    context.driver.get(context.url+'login/ingresar')
+    context.driver.get(context.url+'')
     context.driver.find_element_by_id('id_username').send_keys(usr)
     context.driver.find_element_by_id('id_password').send_keys(pas)
 
+def crear(context,usr,pas):
+    context.usuario = User.objects.create({'username': usr, 'password': pas})

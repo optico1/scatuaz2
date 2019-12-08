@@ -1,63 +1,92 @@
+from login.forms import LoginForm
 from django.test import TestCase
-from django.core.exceptions import ValidationError
-from login.forms import UserForm,UsuarioForm
-from login.models import Usuario,User
+from login.test.test_views import crear_usuario
 
-class Test_Form_User(TestCase):
-    def test_form_valid_user(self):
-        dataUsuario ={
-            'username' : 'tigrito',
-            'password': 'tigrito123',
-            'password_re' : 'tigrito123'
-        }
-        form = UserForm(
-            dataUsuario
+
+class TestFormLogin(TestCase):
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        self.client.get('/cerrar')
+
+    def test_login_con_campos_validos(self):
+        crear_usuario(self)
+        form = LoginForm(
+            data={
+                'username': 'tigre',
+                'password': 'tigre123',
+            }
         )
         self.assertTrue(form.is_valid())
 
-    def test_form_invalid_user(self):
-        dataUsuario ={
-            'username' : 'tigrito',
-            'password': 'tigrito123',
-            'password_re' : 'tigrito1234'
-        }
-        form = UserForm(
-            dataUsuario
+    def test_login_con_campos_vacios(self):
+        crear_usuario(self)
+        form = LoginForm(
+            data={
+                'username': '',
+                'password': 'tigre123',
+            }
         )
         self.assertFalse(form.is_valid())
+        self.assertEquals(form.errors['username']
+                          [0], 'Este campo es obligatorio')
 
-    def test_form_data_personal_valid(self):
-        """
-        dataUsuario ={
-            'username' : 'desconocido',
-            'password': 'tigrito123',
-            'password_re' : 'tigrito123'
-        }
-        """
-        dataPersonal ={
-            'nombre' : 'eduardo',
-            'correo' : 'lalo@gmail.com'
-        }
-        form = UsuarioForm(
-            dataPersonal
-        )
-        """
-        form = UserForm(
-            dataUsuario
-        )
-        """
-        self.assertTrue(form.is_valid())
-
-    def test_form_data_personal_invalid(self):
-        dataPersonal ={
-            'nombre' : '',
-            'correo' : 'lalo@gmail.com'
-        }
-        form = UsuarioForm(
-            dataPersonal
+        form = LoginForm(
+            data={
+                'username': 'tigre',
+                'password': '',
+            }
         )
         self.assertFalse(form.is_valid())
+        self.assertEquals(form.errors['password']
+                          [0], 'Este campo es obligatorio')
 
+    def test_login_con_username_mayor_a_50_caracteres(self):
+        crear_usuario(self)
+        form = LoginForm(
+            data={
+                'username': 'tigretigretigretigretigretigretigretigretigretigretigre',
+                'password': 'tigre123',
+            }
+        )
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['username'][0],
+                         'La longitud maxima es de 50')
 
+    def test_login_con_username_menor_a_5_caracteres(self):
+        crear_usuario(self)
+        form = LoginForm(
+            data={
+                'username': 'tigr',
+                'password': 'tigre123',
+            }
+        )
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['username'][0],
+                         'La longitud minima es de 5')
 
-    
+    def test_login_con_password_mayor_a_16_caracteres(self):
+        crear_usuario(self)
+        form = LoginForm(
+            data={
+                'username': 'tigre',
+                'password': 'tigre1234567890tigre',
+            }
+        )
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['password'][0],
+                         'La longitud maxima es de 16')
+
+    def test_login_con_password_menor_a_8_caracteres(self):
+        crear_usuario(self)
+        form = LoginForm(
+            data={
+                'username': 'tigre',
+                'password': 'tigre12',
+            }
+        )
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['password'][0],
+                         'La longitud minima es de 8')
