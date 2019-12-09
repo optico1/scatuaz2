@@ -1,9 +1,22 @@
 from django.test import TestCase
-from usuario.forms import ModificarUsuarioForm, UsuarioForm 
+from usuario.forms import CambiarContrasenaForm, ModificarUsuarioForm, UsuarioForm 
+from django.contrib.auth.forms import SetPasswordForm
 
 
 class TestFormModificarUsuario(TestCase):
 
+    def test_si_el_formulario_es_valido_modificar_usuario(self):    
+     ModificarUsuarioForm(self)
+     form = ModificarUsuarioForm(
+            data={
+                'username':'tigre',
+                 'email':'tigre@hotmail.com',
+            }
+        )
+     self.assertTrue(form.is_valid())
+    
+
+     
     def test_si_el_formulario_es_invalido_mas_de_43_caracteres_en_username(self):
 
         data = {
