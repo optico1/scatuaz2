@@ -295,6 +295,7 @@ class TestViewEliminarUsuario(TestCase):
     def test_muestra_advertencia_cuando_se_eliminara_el_usuario_logeado(self):
         response = self.client.get('/usuario/eliminar/'+str(self.user.id))
         self.assertInHTML('¡CUIDADO! Estas por borrar tu propia cuenta',  response.content.decode("utf-8"))
+    
 
 class TestViewModificarUsuario(TestCase):
 

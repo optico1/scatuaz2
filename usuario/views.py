@@ -34,12 +34,9 @@ def agregar_usuario(request):
 @login_required
 def eliminar_usuario(request, id):
     if request.method == 'POST':
-        try:
-            usuario = User.objects.get(pk=id)
-            usuario.delete()
-            return redirect('lista_usuario')
-        except User.DoesNotExist:
-            return redirect('lista_usuario')
+        usuario = User.objects.get(pk=id)
+        usuario.delete()
+        return redirect('lista_usuario')
     else:
         usuario = User.objects.get(pk=id)
         return render(request, 'confirm_delete_user.html', {'usuario': usuario})

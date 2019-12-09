@@ -27,6 +27,7 @@ class TrabajadorForm(forms.ModelForm):
     nombre = forms.CharField(
         required=True,
         label='Nombre',
+        max_length=50,
         error_messages={
             'required': 'El campo Nombre es obligatorio',
         },
@@ -37,9 +38,12 @@ class TrabajadorForm(forms.ModelForm):
     rfc = forms.CharField(
         required=True,
         label='RFC',
+        min_length=12,
         max_length=13,
         error_messages={
             'required': 'El campo RFC es obligatorio',
+            'min_length': 'La longitud minima es de 12 caracteres',
+            'max_length': 'La longitud maxima es de 13 caracteres'
         },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
@@ -48,8 +52,12 @@ class TrabajadorForm(forms.ModelForm):
     curp = forms.CharField(
         required=True,
         label='CURP',
+        max_length=18,
+        min_length=18,
         error_messages={
             'required': 'El campo CURP es obligatorio',
+            'min_length': 'La longitud debe ser de 18 caracteres',
+            'max_length': 'La longitud debe ser de 18 caracteres'
         },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
@@ -58,7 +66,10 @@ class TrabajadorForm(forms.ModelForm):
     sexo = forms.ChoiceField(
         required=True,
         label='Sexo',
-        choices=OPCIONES_SEXO, 
+        choices=OPCIONES_SEXO,
+        error_messages={
+            'required': 'El campo Sexo es obligatorio',
+        },
         widget=forms.RadioSelect(
             attrs={'class': 'form-check-input'},
         )
@@ -66,6 +77,9 @@ class TrabajadorForm(forms.ModelForm):
     pais_residencia = forms.CharField(
         required=True,
         label='País de Residencia',
+        error_messages={
+            'required': 'El campo País de Residencia es obligatorio',
+        },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
         )
@@ -73,6 +87,9 @@ class TrabajadorForm(forms.ModelForm):
     estado_residencia = forms.CharField(
         required=True,
         label='Estado de Residencia',
+        error_messages={
+            'required': 'El campo Estado de Residencia es obligatorio',
+        },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
         )
@@ -80,6 +97,9 @@ class TrabajadorForm(forms.ModelForm):
     municipio_residencia = forms.CharField(
         required=True,
         label='Municipio de Residencia',
+        error_messages={
+            'required': 'El campo Municipio de Residencia es obligatorio',
+        },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
         )
@@ -87,6 +107,9 @@ class TrabajadorForm(forms.ModelForm):
     calle = forms.CharField(
         required=True,
         label='Calle de Residencia',
+        error_messages={
+            'required': 'El campo Calle de Residencia es obligatorio',
+        },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
         )
@@ -94,6 +117,9 @@ class TrabajadorForm(forms.ModelForm):
     numero = forms.CharField(
         required=True,
         label='Numero',
+        error_messages={
+            'required': 'El campo Numero es obligatorio',
+        },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
         )
@@ -101,6 +127,9 @@ class TrabajadorForm(forms.ModelForm):
     colonia = forms.CharField(
         required=True,
         label='Colonia de Residencia',
+        error_messages={
+            'required': 'El campo Colonia de Residencia es obligatorio',
+        },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
         )
@@ -108,6 +137,9 @@ class TrabajadorForm(forms.ModelForm):
     cp = forms.CharField(
         required=True,
         label='CP',
+        error_messages={
+            'required': 'El campo CP es obligatorio',
+        },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
         )
@@ -115,7 +147,13 @@ class TrabajadorForm(forms.ModelForm):
     telefono = forms.CharField(
         required=False,
         max_length=10,
+        min_length=7,
         label='Teléfono',
+        error_messages={
+            'required': 'El campo Teléfono es obligatorio',
+            'min_length': 'La longitud minima es de 7 caracteres',
+            'max_length': 'La longitud maxima es de 10 caracteres'
+        },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
         )
@@ -132,6 +170,10 @@ class TrabajadorForm(forms.ModelForm):
         required=True,
         max_length=6,
         label='Matricula de Administrativo',
+        error_messages={
+            'required': 'El campo Matricula de Administrativo es obligatorio',
+            'max_length': 'La longitud maxima es de 6 caracteres'
+        },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
         )
@@ -140,6 +182,10 @@ class TrabajadorForm(forms.ModelForm):
         required=True,
         max_length=6,
         label='Matricula Gremial',
+        error_messages={
+            'required': 'El campo Matricula Gremial es obligatorio',
+            'max_length': 'La longitud maxima es de 6 caracteres'
+        },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
         )
@@ -149,21 +195,27 @@ class TrabajadorForm(forms.ModelForm):
         required=True,
         label='Grado Max de Estudios',
         choices=OPCIONES_ESTUDIOS, 
+        error_messages={
+            'required': 'El campo Grado Max de Estudios es obligatorio',
+        },
         widget=forms.Select(
             attrs={'class': 'form-control'},
         )
     )
     # DATOS ISSSTE
     nss = forms.CharField(
-        required=True,
+        required=False,
         max_length=11,
         label='NSS',
+        error_messages={
+            'max_length': 'La longitud maxima es de 11 caracteres'
+        },
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
         )
     )
     no_issste = forms.CharField(
-        required=True,
+        required=False,
         label='No. de ISSSTE',
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
@@ -183,9 +235,6 @@ class TrabajadorForm(forms.ModelForm):
         widget=forms.CheckboxInput(
             attrs={'class': 'form-check-input',}
         )
-    )
-    alta_usuario = forms.CharField(
-        required=False
     )
     
 

@@ -106,8 +106,12 @@ class Trabajador(models.Model):
     no_issste = models.CharField(
         max_length=50
     )
-    validado_renapo = models.BooleanField()
-    validado_siri = models.BooleanField()
+    validado_renapo = models.BooleanField(
+        null=True
+    )
+    validado_siri = models.BooleanField(
+        null=True
+    )
     # DATOS DE ALTA
     alta_usuario = models.CharField(
         max_length=10
