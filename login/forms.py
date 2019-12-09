@@ -3,45 +3,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 
 
-class UserForm(forms.ModelForm):
-
-    password = forms.CharField(
-        widget=forms.PasswordInput(
-            attrs={
-                'placeholder': 'Escribe contraseña'
-            }
-        ),
-        label="Contraseña"
-    )
-    password_re = forms.CharField(
-        widget=forms.PasswordInput(
-            attrs={
-                'placeholder': 'Repite contraseña'
-            }
-        ),
-        label="Repita contraseña"
-    )
-
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name',
-                  'email', 'password', 'password_re']
-
-    def save(self, commit=True):
-        user = super(UserForm, self).save(commit=False)
-        user.set_password(self.cleaned_data['password'])
-        if commit:
-            user.save()
-        return user
-
-    def clean_password(self, *args, **kwargs):
-        if self.data['password'] != self.data['password_re']:
-            raise forms.ValidationError(
-                'Las contraseñas no son iguales',
-                code='passwords_not_equals')
-        return self.data['password']
-
-
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=50,

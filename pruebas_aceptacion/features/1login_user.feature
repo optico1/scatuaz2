@@ -7,7 +7,7 @@ Característica: Inicio de sesión de un usuario
         Dado que ingreso a la vista de " "
         Y ingreso el usuario "tigre" con la contraseña "tigre123"
         Cuando se realiza un inicio de sesion
-        Entonces puedo ver un mensaje de "Lista Trabajadores"
+        Entonces puedo ver un mensaje de "Lista de Trabajadores"
     
     Escenario: Iniciar sesion erroneamente con usuario tigre y con contraseña ti542234
         Dado que ingreso a la vista de " "
