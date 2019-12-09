@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.views.generic import ListView
-from .models import Buscar, Trabajador
+from .models import Trabajador
 from .forms import TrabajadorForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -24,7 +24,6 @@ def lista_trabajador(request):
     trabajadores = Trabajador.objects.all()
     context = {
         'trabajadores': trabajadores,
-        'llave': 'Esta llave es secreta',
     }
 
     return render(request, 'lista_trabajador.html', context)

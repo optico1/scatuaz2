@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+        <form method="post" class="form pt-4">
+            {% csrf_token %}
+            <div class="row justify-content-center">
+                <div class="col-6">
+
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="card-title">Modificar Usuario</h1>
+                        </div>
+                    </div>
+        
+        
+                    <div class="card mb-3 shadow">
+                        <div class="card-header">
+                            <h4 class="card-title mb-0">Datos</h4>
+                        </div>
+                        <div class="card-body pb-0">
+                            <div class="form-row justify-content-center">
+                                <div class="form-group col-md-11">
+                                    <label for="id_username">
+                                        {{form.username.label}}
+                                    </label>
+                                    {{form.username}}
+                                    {% for error in form.username.errors %}
+                                        <p class="text-danger text-center">
+                                            {{error}}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="form-row justify-content-center">
+                                <div class="form-group col-md-11">
+                                    <label for="id_email">
+                                        {{form.email.label}}
+                                    </label>
+                                    {{form.email}}
+                                    {% for error in form.email.errors %}
+                                        <p class="text-danger text-center">
+                                            {{error}}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="form-row justify-content-center">
+                                <div class="form-group col-md-11">
+                                    <div class="form-inline justify-content-center">
+                                        {{form.is_superuser}}
+                                        <label class="form-check-label text-primary" for="id_is_superuser">
+                                            {{form.is_superuser.label}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row justify-content-center mb-3">
+                                <a href="{% url "cambiar_contrasena" usuario.id %}">Cambiar contraseña</a>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="d-flex flex-row-reverse">
+                        <a href="{% url "lista_usuario" %}" class="btn btn-secondary ml-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+{% endblock contenido %}
