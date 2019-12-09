@@ -14,16 +14,33 @@
 <body class="bg-grey">
     {% block style %}{% endblock style %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'lista_trabajador' %}">SCATUAZ</a>
+        <a class="navbar-brand" href="{% url 'iniciar_sesion' %}"><h4>SCATUAZ</h4></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
-        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            <form class="form-inline my-2 my-lg-0" action="{% url 'buscar_trabajador' %}" method="GET">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="buscador" id="buscador">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="buscar">Buscar</button>
-            </form>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lista_trabajador' %}">Trabajadores</a>
+                    </li>
+                    {% if user.is_superuser %}    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lista_usuario' %}">Usuarios</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
+                    </li>
+                {% endif %}
+            </ul>
+            {% if user.is_authenticated %}
+                <form class="form-inline my-2 my-lg-0" action="{% url 'buscar_trabajador' %}" method="GET">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="buscador" id="buscador" required="true">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="buscar">Buscar</button>
+                </form>
+            {% endif %}
         </div>
     </nav>
     <div class="container">

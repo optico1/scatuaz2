@@ -7,7 +7,6 @@ class TestView(TestCase):
     def test_url_lista_trabajadores(self):
         response = self.client.get('/trabajador/')
         self.assertEqual(response.status_code, 200)
-        
 
     def test_nombre_url_lista_trabajadores(self):
         response = self.client.get(reverse('lista_trabajador'))

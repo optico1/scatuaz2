@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+<div class="row pt-5 justify-content-center">
+    <div class="col-10">
+        <h1>Lista de Usuarios</h1>
+    </div>
+    <div class="col-10 align-self-end">
+        <a href="{% url "agregar_usuario" %}" class="btn btn-success bt-sm float-right">Agregar Usuario</a>
+    </div>
+</div>
+<div class="row mt-3 justify-content-center">
+    <div class="col-10">
+        {% if usuarios|length == 0 %}
+            <h4>No hay usuarios</h4>
+        {% else %}
+            <table class="table table-dark rounded-lg shadow">
+                <thead class="thead-dark">
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th class="text-center">Admin</th>
+                    <th class="text-center">Opciones</th>
+                </thead>
+                <tbody>
+
+                    {% for usuario in usuarios %}
+                        <tr>
+                            <td>{{usuario.username}}</td>
+                            <td>{{usuario.email}}</td>
+                            <td class="text-center">
+                                <input type="checkbox" id="id_is_superuser" disabled
+                                    {% if usuario.is_superuser == 1 %}
+                                      checked
+                                    {% endif %}
+                                >
+                            </td>
+                            <td class="text-center">
+                                <a href="{% url "eliminar_usuario" usuario.id %}" class="btn btn-danger btn-sm mr-4">Eliminar</a>
+                                <a href="{% url "modificar_usuario" usuario.id %}" class="btn btn-primary btn-sm">Editar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock contenido %}
