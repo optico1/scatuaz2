@@ -1,0 +1,460 @@
+{% extends 'base.html' %} {% block contenido %}
+
+        <div class="row justify-content-around mb-4 pt-3">
+            <div class="col-md-5 text-center align-self-center">
+                <h3 class="card-title mb-4">
+                    {{trabajador.nombre}} {{trabajador.paterno}}
+                    {{trabajador.materno}}
+                </h3>
+                <div class="form-check">
+                    {% if trabajador.validado_renapo %}
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="id_validado_renapo"
+                        checked
+                        disabled
+                    />
+                    {% else %}
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="id_validado_renapo"
+                        disabled
+                    />
+                    {% endif %}
+                    <label class="form-check-label" for="id_validado_renapo">
+                        Validado por RENAPO
+                    </label>
+                </div>
+                <div class="form-check mb-4">
+                    {% if trabajador.validado_siri %}
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="id_validado_siri"
+                        checked
+                        disabled
+                    />
+                    {% else %}
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="id_validado_siri"
+                        disabled
+                    />
+                    {% endif %}
+                    <label class="form-check-label" for="id_validado_siri">
+                        Validado por SIRI
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-md-4 align-self-center">
+                <div class="accordion" id="accordion-alta">
+                    <div class="card shadow make-short">
+                        <div class="card-header m-0 p-0" id="heading-alta">
+                            <h4 class="mb-0">
+                                <button
+                                    class="btn btn-link"
+                                    type="button"
+                                    data-toggle="collapse"
+                                    data-target="#collapse-alta"
+                                    aria-expanded="true"
+                                    aria-controls="collapse-alta"
+                                >
+                                    Alta de Registro
+                                </button>
+                            </h4>
+                        </div>
+                        <div
+                            id="collapse-alta"
+                            class="collapse"
+                            aria-labelledby="heading-alta"
+                            data-parent="#accordion-alta"
+                        >
+                            <div class="card-body pb-1 pt-1">
+                                <div class="form-row justify-content-center">
+                                    <div class="form-group make-form-short pr-3">
+                                        <label for="id_paterno">
+                                            <small>Usuario</small>
+                                        </label>
+                                        <input
+                                            disabled
+                                            type="text"
+                                            class="form-control form-control-sm"
+                                            value="{{usuario.username}}"
+                                        />
+                                    </div>
+                                    <div class="form-group make-form-short">
+                                        <label for="id_paterno">
+                                            <small>Fecha de Alta</small>
+                                        </label>
+                                        <input
+                                            disabled
+                                            type="text"
+                                            class="form-control form-control-sm"
+                                            value="{{trabajador.alta_fecha}}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            {% if actualizaciones|length > 0 %}
+            
+            <div class="col-md-3 align-self-center">
+                <div class="accordion" id="accordion-historial">
+                    <div class="card shadow">
+                        <div class="card-header m-0 p-0" id="heading-historial">
+                            <h4 class="mb-0">
+                                <button
+                                    class="btn btn-link"
+                                    type="button"
+                                    data-toggle="collapse"
+                                    data-target="#collapse-historial"
+                                    aria-expanded="true"
+                                    aria-controls="collapse-historial"
+                                >
+                                    Historial del Registro
+                                </button>
+                            </h4>
+                        </div>
+                        <div
+                            id="collapse-historial"
+                            class="collapse"
+                            aria-labelledby="heading-historial"
+                            data-parent="#accordion-historial"
+                        >
+                            <div class="card-body">
+                                <table class="table table-sm text-center">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col"><small>Usuario</small></th>
+                                            <th scope="col"><small>Fecha de Actualizacion</small></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        {% for actualizacion in actualizaciones %}  
+                                        <tr>
+                                            <td><small>{{actualizacion.usuario}}</small></td>
+                                            <td><small>{{actualizacion.fecha}}</small></td>
+                                        </tr>
+                                        {% endfor %}
+                                            
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+
+            <div class="col-md-3 mt-3 text-center">
+                <h4>No hay historial de actualizaciones disponible</h4>
+            </div>
+            {% endif %}
+                
+        </div>
+
+        <div class="card mb-3 shadow">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Datos Personales</h4>
+            </div>
+            <div class="card-body">
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-2">
+                        <label for="id_paterno">
+                            Apellido Paterno
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.paterno}}"
+                        />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="id_materno">
+                            Apellido Materno
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.materno}}"
+                        />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="id_nombre">
+                            Nombre
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.nombre}}"
+                        />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="id_rfc">
+                            RFC
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.rfc}}"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-3">
+                        <label for="id_curp">
+                            CURP
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.curp}}"
+                        />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="id_sexo">
+                            Sexo
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{% if trabajador.sexo == M %}Masculino{% else %}Femenino{% endif %}"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3 shadow">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Datos de Residencia</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-3">
+                        <label for="id_pais_residencia">
+                            Pais de Residencia
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.pais_residencia}}"
+                        />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="id_estado_residencia">
+                            Estado de Residencia
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.estado_residencia}}"
+                        />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="id_municipio_residencia">
+                            Municipio de Residencia
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.municipio_residencia}}"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-3">
+                        <label for="id_calle">
+                            Calle de Residencia
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.calle}}"
+                        />
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label for="id_numero">
+                            Numero
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.numero}}"
+                        />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="id_colonia">
+                            Colonia de Residencia
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.colonia}}"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-1">
+                        <label for="id_cp">
+                            CP
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.cp}}"
+                        />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="id_telefono">
+                            Telefono
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.telefono}}"
+                        />
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="id_email">
+                            Correo Electronico
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.email}}"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3 shadow">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Datos Laborales</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-3">
+                        <label for="id_matricula_administrativo">
+                            Matricula de Administrativo
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.matricula_administrativo}}"
+                        />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="id_matricula_gremial">
+                            Matricula Gremial
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.matricula_gremial}}"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3 shadow">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Datos Academicos</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-5">
+                        <label for="id_grado_max_estudios">
+                            Grado Maximo de Estudios
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.grado_max_estudios}}"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3 shadow">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Datos de ISSSTE</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-3">
+                        <label for="id_nss">
+                            NSS
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.nss}}"
+                        />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="id_no_issste">
+                            No. de ISSSTE
+                        </label>
+                        <input
+                            disabled
+                            type="text"
+                            class="form-control"
+                            value="{{trabajador.no_issste}}"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row-reverse">
+            <button
+                onClick="javascript:history.go(-1);"
+                class="btn btn-secondary mb-3 ml-2"
+            >
+                Regresar
+            </button>
+            <a href="{% url "eliminar_trabajador" trabajador.id %}" class="btn btn-danger mb-3 ml-2">Eliminar</a>
+            <a href="{% url "modificar_trabajador" trabajador.id %}" class="btn btn-primary mb-3">Editar</a>
+        </div>
+
+
+{% endblock contenido %}
