@@ -4,6 +4,7 @@ from behave import fixture, use_fixture
 from selenium.webdriver import Firefox
 from unittest import TestCase
 
+
 @fixture
 def browser_firefox(context):
     # -- BEHAVE-FIXTURE: Similar to @contextlib.contextmanager

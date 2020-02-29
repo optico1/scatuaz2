@@ -38,11 +38,9 @@ class TrabajadorForm(forms.ModelForm):
     rfc = forms.CharField(
         required=True,
         label='RFC',
-        min_length=12,
         max_length=13,
         error_messages={
             'required': 'El campo RFC es obligatorio',
-            'min_length': 'La longitud minima es de 12 caracteres',
             'max_length': 'La longitud maxima es de 13 caracteres'
         },
         widget=forms.TextInput(

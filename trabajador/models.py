@@ -45,7 +45,7 @@ class Trabajador(models.Model):
         unique=True,
         validators=[
             MinLengthValidator(
-                13, 'Error de logitud'
+                13, 'Debe tener longitud de 13 caracteres'
             )
         ]
     )
@@ -96,7 +96,7 @@ class Trabajador(models.Model):
     )
     # DATOS ACADEMICOS
     grado_max_estudios = models.CharField(
-        max_length=60,        
+        max_length=60,
         choices=OPCIONES_ESTUDIOS
     )
     # DATOS ISSSTE
@@ -123,6 +123,7 @@ class Trabajador(models.Model):
 
     def __str__(self):
         return self.nombre
+
 
 class Actualizacion(models.Model):
 

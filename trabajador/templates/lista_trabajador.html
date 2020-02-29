@@ -26,11 +26,12 @@
                 <tbody>
 
                     {% for trabajador in trabajadores %}
-                        <tr>
-                            <td><a class="text-white" href="{% url "ver_trabajador" trabajador.id %}">{{trabajador.paterno}}</a></td>
-                            <td><a class="text-white" href="{% url "ver_trabajador" trabajador.id %}">{{trabajador.materno}}</a></td>
-                            <td><a class="text-white" href="{% url "ver_trabajador" trabajador.id %}">{{trabajador.nombre}}</a></td>
-                            <td><a class="text-white" href="{% url "ver_trabajador" trabajador.id %}">{{trabajador.rfc}}</a></td>
+                        <tr onclick="verDetalle({{trabajador.id}})">
+                            <!-- <a class="text-white" href="{% url "ver_trabajador" trabajador.id %}"></a> -->
+                            <td>{{trabajador.paterno}}</td>
+                            <td>{{trabajador.materno}}</td>
+                            <td>{{trabajador.nombre}}</td>
+                            <td>{{trabajador.rfc}}</td>
                             <td class="text-center">
                                 <a href="{% url "eliminar_trabajador" trabajador.id %}" class="btn btn-danger btn-sm mr-4">Eliminar</a>
                                 <a href="{% url "modificar_trabajador" trabajador.id %}" class="btn btn-primary btn-sm">Editar</a>
@@ -43,5 +44,11 @@
         {% endif %}
     </div>
 </div>
+
+<script>
+    function verDetalle(id){
+        console.log(id);
+    }
+</script>
 
 {% endblock contenido %}

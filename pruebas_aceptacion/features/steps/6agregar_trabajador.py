@@ -13,7 +13,8 @@ def step_impl(context):
 
 @when(u'escribo los datos "{field_1}": "{field_1_d}", "{field_2}": "{field_2_d}", "{field_3}": "{field_3_d}",')
 def step_impl(context, field_1, field_1_d, field_2, field_2_d, field_3, field_3_d):
-    context.driver.find_element_by_css_selector("input[type='radio'][value='"+field_1_d+"']").click()
+    context.driver.find_element_by_css_selector(
+        "input[type='radio'][value='"+field_1_d+"']").click()
     context.driver.find_element_by_id('id_'+field_2).send_keys(field_2_d)
     context.driver.find_element_by_id('id_'+field_3).send_keys(field_3_d)
 
@@ -42,14 +43,16 @@ def step_impl(context):
 
 @then(u'podré ver el trabajador con RFC "{rfc}" en la lista de trabajador')
 def step_impl(context, rfc):
-    rows =  context.driver.find_elements_by_tag_name('tr')
-    rfcs = [row.find_elements_by_tag_name('td')[3].text for row in rows[1:] ]
-    context.test.assertIn(rfc,rfcs)
+    rows = context.driver.find_elements_by_tag_name('tr')
+    rfcs = [row.find_elements_by_tag_name('td')[3].text for row in rows[1:]]
+    context.test.assertIn(rfc, rfcs)
 
 
 @then(u'seguire en la misma vista')
 def step_impl(context):
-    context.test.assertEquals(str(context.driver.current_url), 'http://127.0.0.1:8000/trabajador/agregar')
+    context.test.assertEquals(
+        str(context.driver.current_url), 'http://127.0.0.1:8000/trabajador/agregar')
+
 
 @then(u'podre ver el mensaje de error "{error1}", "{error2}", "{error3}", "{error4}"')
 def step_impl(context, error1, error2, error3, error4):

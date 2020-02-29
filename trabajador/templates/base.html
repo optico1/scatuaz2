@@ -31,13 +31,13 @@
                     </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
+                        <a class="nav-link" href="{% url 'cerrar_sesion' %}"><small>Cerrar Sesión</small></a>
                     </li>
                 {% endif %}
             </ul>
             {% if user.is_authenticated %}
                 <form class="form-inline my-2 my-lg-0" action="{% url 'buscar_trabajador' %}" method="GET">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="buscador" id="buscador" required="true">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar Trabajador" aria-label="Search" name="buscador" id="buscador" required="true">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="buscar">Buscar</button>
                 </form>
             {% endif %}

@@ -9,13 +9,13 @@ class TestModels(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_superuser(
-            username= 'joan1',
-            email= 'joan@gmail.com',
-            password= 'joanteto123'
+            username='joan1',
+            email='joan@gmail.com',
+            password='joanteto123'
         )
         self.client.login(
-            username= 'joan1',
-            password= 'joanteto123'
+            username='joan1',
+            password='joanteto123'
         )
 
     def tearDown(self):
@@ -49,8 +49,6 @@ class TestModels(TestCase):
         trabajador_uno = Trabajador.objects.first()
         self.assertEqual(trabajador, trabajador_uno)
 
-
-    
     def test_si_el_formulario_es_invalido_sin_nombre(self):
 
         data = {
@@ -76,12 +74,11 @@ class TestModels(TestCase):
             'validado_siri': 'False',
             'alta_usuario': self.user.id,
         }
-        
+
         form = TrabajadorForm(
             data
         )
         self.assertFalse(form.is_valid())
-
 
     def test_si_el_formulario_es_invalido_mas_de_50_caracteres_en_nombre(self):
 
@@ -108,12 +105,11 @@ class TestModels(TestCase):
             'validado_siri': 'False',
             'alta_usuario': self.user.id,
         }
-        
+
         form = TrabajadorForm(
             data
         )
         self.assertFalse(form.is_valid())
-
 
     def test_si_el_formulario_es_invalido_mas_de_13_caracteres_en_rfc(self):
 
@@ -140,7 +136,7 @@ class TestModels(TestCase):
             'validado_siri': 'False',
             'alta_usuario': self.user.id,
         }
-        
+
         form = TrabajadorForm(
             data
         )

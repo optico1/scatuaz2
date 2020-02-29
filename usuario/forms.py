@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
 from django.contrib.auth.models import User
 
+
 class UsuarioForm(UserCreationForm):
 
     username = forms.CharField(
@@ -86,7 +87,8 @@ class UsuarioForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', 'is_superuser']
+        fields = ['username', 'email', 'password1',
+                  'password2', 'is_superuser']
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
@@ -104,6 +106,7 @@ class UsuarioForm(UserCreationForm):
                 code='password_mismatch',
             )
         return password2
+
 
 class CambiarContrasenaForm(SetPasswordForm):
 
@@ -161,6 +164,7 @@ class CambiarContrasenaForm(SetPasswordForm):
         if commit:
             self.user.save()
         return self.user
+
 
 class ModificarUsuarioForm(UserChangeForm):
 

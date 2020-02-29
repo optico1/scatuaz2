@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+
 @login_required
 def buscar_trabajador(request):
     query = request.GET.get('buscador')
@@ -18,6 +19,7 @@ def buscar_trabajador(request):
     }
     return render(request, 'buscar_trabajador.html', context)
 
+
 @login_required
 def lista_trabajador(request):
     trabajadores = Trabajador.objects.all()
@@ -27,6 +29,7 @@ def lista_trabajador(request):
     }
 
     return render(request, 'lista_trabajador.html', context)
+
 
 @login_required
 def ver_trabajador(request, id):
@@ -44,6 +47,7 @@ def ver_trabajador(request, id):
 
     return render(request, 'ver_trabajador.html', context)
 
+
 @login_required
 def agregar_trabajador(request):
     if request.method == 'POST':
@@ -55,7 +59,8 @@ def agregar_trabajador(request):
             return redirect('lista_trabajador')
     else:
         form = TrabajadorForm()
-    return render(request, 'agregar_trabajador.html', {'form':form})
+    return render(request, 'agregar_trabajador.html', {'form': form})
+
 
 @login_required
 def eliminar_trabajador(request, pk):
@@ -74,15 +79,17 @@ def eliminar_trabajador(request, pk):
         trabajador = Trabajador.objects.get(pk=pk)
         return render(request, 'confirm_delete.html', {'trabajador': trabajador})
 
+
 @login_required
 def modificar_trabajador(request, id):
     trabajador = Trabajador.objects.get(pk=id)
     if request.method == 'POST':
-        form = TrabajadorForm(request.POST, instance=trabajador) 
+        form = TrabajadorForm(request.POST, instance=trabajador)
         if form.is_valid():
             form.save()
-            Actualizacion.objects.create(id_trabajador=trabajador, usuario=request.user.username)
+            Actualizacion.objects.create(
+                id_trabajador=trabajador, usuario=request.user.username)
             return redirect('lista_trabajador')
     else:
         form = TrabajadorForm(instance=trabajador)
-    return render(request, 'modificar_trabajador.html', {'form':form})
+    return render(request, 'modificar_trabajador.html', {'form': form})

@@ -4,7 +4,8 @@ import time
 
 @when(u'de click en el boton de cambiar contraseña')
 def step_impl(context):
-    context.driver.find_element_by_class_name('card').find_element_by_tag_name('a').click()
+    context.driver.find_element_by_class_name(
+        'card').find_element_by_tag_name('a').click()
 
 
 @then(u'puedo cerrar sesion')

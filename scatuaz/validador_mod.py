@@ -1,7 +1,10 @@
-from django.utils.translation import ngettext  # https://docs.python.org/2/library/gettext.html#gettext.ngettext
+# https://docs.python.org/2/library/gettext.html#gettext.ngettext
+from django.utils.translation import ngettext
 from django.core.exceptions import ValidationError
 
 # https://docs.djangoproject.com/en/2.0/_modules/django/contrib/auth/password_validation/#MinimumLengthValidator
+
+
 class MyCustomMinimumLengthValidator(object):
     def __init__(self, min_length=8):  # put default min_length here
         self.min_length = min_length
@@ -16,8 +19,8 @@ class MyCustomMinimumLengthValidator(object):
                     "This password is too short. It must contain at least %(min_length)d characters.",
                     self.min_length
                 ),
-            code='password_too_short',
-            params={'min_length': self.min_length},
+                code='password_too_short',
+                params={'min_length': self.min_length},
             )
 
     def get_help_text(self):

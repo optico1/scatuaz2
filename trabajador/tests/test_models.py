@@ -4,23 +4,24 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.test import TestCase
 
+
 class TestModels(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_superuser(
-            username= 'joan1',
-            email= 'joan@gmail.com',
-            password= 'joanteto123'
+            username='joan1',
+            email='joan@gmail.com',
+            password='joanteto123'
         )
         self.client.login(
-            username= 'joan1',
-            password= 'joanteto123'
+            username='joan1',
+            password='joanteto123'
         )
 
     def tearDown(self):
         self.client.logout()
 
-    def test_return_object_trabajador(self):        
+    def test_return_object_trabajador(self):
         trabajador = Trabajador(
             nombre='Salvador',
             paterno='Loera',
@@ -46,7 +47,6 @@ class TestModels(TestCase):
         )
         trabajador.save()
         self.assertEqual(trabajador.nombre, trabajador.__str__())
-    
 
     def test_max_length_en_nombre(self):
 
@@ -73,8 +73,8 @@ class TestModels(TestCase):
             validado_siri='False',
             alta_usuario=self.user.id,
         )
-        
-        self.assertLess(len(trabajador.nombre),50)
+
+        self.assertLess(len(trabajador.nombre), 50)
 
     def test_mas_de_la_max_length_en_nombre(self):
 
@@ -101,9 +101,8 @@ class TestModels(TestCase):
             validado_siri='False',
             alta_usuario=self.user.id,
         )
-        
-        
-        self.assertGreater(len(trabajador.nombre),50)
+
+        self.assertGreater(len(trabajador.nombre), 50)
 
     def test_insercion_del_trabajador(self):
         trabajador = Trabajador(
