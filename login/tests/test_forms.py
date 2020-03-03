@@ -1,6 +1,6 @@
 from login.forms import LoginForm
 from django.test import TestCase
-from login.test.test_views import crear_usuario
+from test_views import crear_usuario
 
 
 class TestFormLogin(TestCase):
