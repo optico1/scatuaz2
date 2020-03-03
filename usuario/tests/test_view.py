@@ -71,14 +71,14 @@ class TestViewListaUsuario(TestCase):
         self.assertInHTML(self.user.username, response.content.decode("utf-8"))
         self.assertInHTML(self.user.email, response.content.decode("utf-8"))
         self.assertInHTML(
-            '<input type="checkbox" id="id_is_superuser" disabled checked>', response.content.decode("utf-8"))
+            '<td class="text-center">Si</td>', response.content.decode("utf-8"))
 
     def test_muestra_botones_para_eliminar_y_modificar(self):
         response = self.client.get('/usuario/')
         self.assertInHTML('<a href="/usuario/eliminar/'+str(self.user.id) +
-                          '" class="btn btn-danger btn-sm mr-4">Eliminar</a>', response.content.decode("utf-8"))
+                          '" class="btn btn-danger btn-sm">Eliminar</a>', response.content.decode("utf-8"))
         self.assertInHTML('<a href="/usuario/modificar/'+str(self.user.id) +
-                          '" class="btn btn-primary btn-sm">Editar</a>', response.content.decode("utf-8"))
+                          '" class="btn btn-primary btn-sm mr-4">Editar</a>', response.content.decode("utf-8"))
 
 
 class TestViewAgregarUsuario(TestCase):
@@ -260,7 +260,7 @@ class TestViewAgregarUsuario(TestCase):
             follow=True
         )
         self.assertInHTML(
-            'A user with that username already exists.', response.content.decode("utf-8"))
+            'Ya existe un usuario con ese nombre.', response.content.decode("utf-8"))
 
 
 class TestViewEliminarUsuario(TestCase):
@@ -426,7 +426,7 @@ class TestViewModificarUsuario(TestCase):
             follow=True
         )
         self.assertInHTML(
-            'A user with that username already exists.', response.content.decode("utf-8"))
+            'Ya existe un usuario con ese nombre.', response.content.decode("utf-8"))
 
 
 class TestViewCambiarContraseña(TestCase):

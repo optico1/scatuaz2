@@ -103,7 +103,7 @@ class TestFormUsuario(TestCase):
         )
         self.assertFalse(form.is_valid())
         self.assertEquals(form.errors['email'][0],
-                          'Enter a valid email address.')
+                          'Introduzca una dirección de correo electrónico válida.')
 
     def test_crear_usuario_con_password_mayor_a_16_caracteres(self):
         credenciales = {
@@ -157,7 +157,7 @@ class TestFormUsuario(TestCase):
         )
         self.assertFalse(form.is_valid())
         self.assertEquals(form.errors['username'][0],
-                          'A user with that username already exists.')
+                          'Ya existe un usuario con ese nombre.')
 
     def test_solo_almacenar_un_nuevo_usuario(self):
         user = User.objects.create_user(
