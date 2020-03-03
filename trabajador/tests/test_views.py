@@ -342,12 +342,12 @@ class TestViewAgregar(TestCase):
             follow=True
         )
         self.assertInHTML(
-            'Trabajador with this Matricula gremial already exists.', response.content.decode("utf-8"))
+            'Ya existe un/a Trabajador con este/a Matricula gremial.', response.content.decode("utf-8"))
         self.assertInHTML(
-            'Trabajador with this Matricula administrativo already exists.', response.content.decode("utf-8"))
+            'Ya existe un/a Trabajador con este/a Matricula administrativo.', response.content.decode("utf-8"))
         self.assertInHTML(
-            'Trabajador with this Curp already exists.', response.content.decode("utf-8"))
-        self.assertInHTML('Trabajador with this Rfc already exists.',
+            'Ya existe un/a Trabajador con este/a Curp.', response.content.decode("utf-8"))
+        self.assertInHTML('Ya existe un/a Trabajador con este/a Rfc.',
                           response.content.decode("utf-8"))
 
     def agregar_trabajador1(self):
