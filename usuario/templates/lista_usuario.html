@@ -25,7 +25,7 @@
                 <tbody>
 
                     {% for usuario in usuarios %}
-                        <tr onclick="verDetalle({{usuario.id}})">
+                        <tr>
                             <td>{{usuario.username}}</td>
                             <td>{{usuario.email}}</td>
                             <td class="text-center">
@@ -47,11 +47,5 @@
         {% endif %}
     </div>
 </div>
-
-<script>
-    function verDetalle(id){
-        console.log(id);
-    }
-</script>
 
 {% endblock contenido %}

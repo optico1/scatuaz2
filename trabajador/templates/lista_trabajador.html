@@ -26,8 +26,7 @@
                 <tbody>
 
                     {% for trabajador in trabajadores %}
-                        <tr onclick="verDetalle({{trabajador.id}})">
-                            <!-- <a class="text-white" href="{% url "ver_trabajador" trabajador.id %}"></a> -->
+                        <tr onclick="verDetalle({{trabajador.id}})" class="clickable">
                             <td>{{trabajador.paterno}}</td>
                             <td>{{trabajador.materno}}</td>
                             <td>{{trabajador.nombre}}</td>
@@ -47,7 +46,10 @@
 
 <script>
     function verDetalle(id){
-        console.log(id);
+
+        var url = "{% url 'ver_trabajador' 3435 %}";
+
+        document.location.href = url.replace('3435', id);
     }
 </script>
 

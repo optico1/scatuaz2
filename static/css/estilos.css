@@ -61,3 +61,7 @@ td a:hover {
 .make-form-short {
     width: 45%;
 }
+
+.clickable:hover {
+    cursor: pointer;
+}
