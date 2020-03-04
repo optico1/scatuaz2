@@ -4,6 +4,7 @@ from .models import Trabajador, Actualizacion
 from .forms import TrabajadorForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -23,9 +24,13 @@ def buscar_trabajador(request):
 @login_required
 def lista_trabajador(request):
     trabajadores = Trabajador.objects.all()
+    paginator = Paginator(trabajadores, 15)
+
+    numero_pagina = request.GET.get('page')
+    pagina = paginator.get_page(numero_pagina)
+
     context = {
-        'trabajadores': trabajadores,
-        'llave': 'Esta llave es secreta',
+        'pagina': pagina,
     }
 
     return render(request, 'lista_trabajador.html', context)

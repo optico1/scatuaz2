@@ -12,7 +12,7 @@
 </div>
 <div class="row mt-3">
     <div class="col">
-        {% if trabajadores|length == 0 %}
+        {% if pagina|length == 0 %}
             <h4>No hay registros</h4>
         {% else %}
             <table class="table table-dark rounded-lg shadow r-click">
@@ -25,7 +25,7 @@
                 </thead>
                 <tbody>
 
-                    {% for trabajador in trabajadores %}
+                    {% for trabajador in pagina %}
                         <tr onclick="verDetalle({{trabajador.id}})" class="clickable">
                             <td>{{trabajador.paterno}}</td>
                             <td>{{trabajador.materno}}</td>
@@ -40,6 +40,66 @@
                     
                 </tbody>
             </table>
+            <!-- Paginator -->
+            {% if pagina.paginator.num_pages > 1 %}
+            <ul class="pagination justify-content-center">
+                <li class="page-item 
+                {% if not pagina.has_previous %}
+                    disabled
+                {% endif %}">
+                    <a class="page-link"
+                    {% if pagina.has_previous %}
+                        href="?page=1"
+                    {% else %}
+                        tabindex="-1"
+                    {% endif %}
+                    >Primero</a>
+                </li>
+                {% if pagina.number > 1 %}    
+                <li class="page-item">
+                    <a class="page-link"
+                    {% if pagina.has_previous %}
+                        href="?page={{ pagina.previous_page_number }}"
+                    {% else %}
+                        tabindex="-1"
+                    {% endif %}
+                    >{{ pagina.previous_page_number }}</a>
+                </li>
+                {% endif %}
+                    
+                <li class="page-item active">
+                    <span class="page-link">
+                        {{ pagina.number }}
+                        <span class="sr-only">(current)</span>
+                    </span>    
+                </li>
+
+                {% if pagina.has_next %}
+                <li class="page-item">
+                    <a class="page-link"
+                    {% if pagina.has_next %}
+                        href="?page={{ pagina.next_page_number }}"
+                    {% else %}
+                        tabindex="-1"
+                    {% endif %}
+                    >{{ pagina.next_page_number }}</a>
+                </li>
+                {% endif %}
+                <li class="page-item 
+                {% if not pagina.has_next %}
+                    disabled
+                {% endif %}">
+                    <a class="page-link"
+                    {% if pagina.has_next %}
+                        href="?page={{ pagina.paginator.num_pages }}"
+                    {% else %}
+                        tabindex="-1"
+                    {% endif %}
+                    >Último</a>
+                </li>
+            </ul>
+            {% endif %}
+            <!-- Paginator -->
         {% endif %}
     </div>
 </div>
