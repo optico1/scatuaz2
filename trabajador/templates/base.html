@@ -22,12 +22,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'lista_trabajador' %}">Trabajadores</a>
+                    <li class="nav-item {% if actual == 'trabajador' %} active {% endif %}">
+                        <a class="nav-link" href="{% if actual == 'trabajador' %}#{% else %}{% url 'lista_trabajador' %}{% endif %}">Trabajadores</a>
                     </li>
                     {% if user.is_superuser %}    
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'lista_usuario' %}">Usuarios</a>
+                    <li class="nav-item {% if actual == 'usuario' %} active {% endif %}">
+                        <a class="nav-link" href="{% if actual == 'usuario' %}#{% else %}{% url 'lista_usuario' %}{% endif %}">Usuarios</a>
                     </li>
                     {% endif %}
                     <li class="nav-item">

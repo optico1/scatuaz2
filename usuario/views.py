@@ -15,6 +15,7 @@ def lista_usuario(request):
     if request.user.is_superuser:
         usuarios = User.objects.all()
         context = {
+            'actual': 'usuario',
             'usuarios': usuarios,
         }
         return render(request, 'lista_usuario.html', context)

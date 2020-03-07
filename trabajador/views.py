@@ -31,6 +31,7 @@ def lista_trabajador(request):
         pagina = paginator.page(paginator.num_pages)
 
     context = {
+        'actual': 'trabajador',
         'pagina': pagina,
     }
     return render(request, 'lista_trabajador.html', context)
