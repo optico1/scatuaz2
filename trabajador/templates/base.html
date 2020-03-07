@@ -36,9 +36,9 @@
                 {% endif %}
             </ul>
             {% if user.is_authenticated %}
-                <form class="form-inline my-2 my-lg-0" action="{% url 'buscar_trabajador' %}" method="GET">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar Trabajador" aria-label="Search" name="buscador" id="buscador" required="true">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="buscar">Buscar</button>
+                <form class="form-inline my-2 my-lg-0" method="GET">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar Trabajador" name="q" value="{{ request.GET.q }}">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
             {% endif %}
         </div>

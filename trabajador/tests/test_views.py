@@ -36,19 +36,7 @@ class TestViewBuscador(TestCase):
     def test_campo_buscador_existe_en_trabajadores(self):
         response = self.client.get('/trabajador/')
         self.assertInHTML(
-            '<input class="form-control mr-sm-2" type="search" placeholder="Buscar Trabajador" aria-label="Search" name="buscador" id="buscador" required="true">', response.content.decode("utf-8"))
-
-    def test_url_buscar_trabajadores(self):
-        response = self.client.get('/trabajador/buscar', follow=True)
-        self.assertEqual(response.status_code, 200)
-
-    def test_nombre_url_buscar_trabajadores(self):
-        response = self.client.get(reverse('buscar_trabajador'))
-        self.assertEqual(response.status_code, 200)
-
-    def test_template_buscar_trabajadores(self):
-        response = self.client.get('/trabajador/buscar')
-        self.assertTemplateUsed(response, 'buscar_trabajador.html')
+            '<input class="form-control mr-sm-2" type="text" placeholder="Buscar Trabajador" aria-label="Search" name="buscador" id="buscador" required="true">', response.content.decode("utf-8"))
 
     def test_resultado_busqueda_existente(self):
         trabajador1 = Trabajador.objects.create(

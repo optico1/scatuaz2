@@ -41,15 +41,12 @@
                 </tbody>
             </table>
             <!-- Paginator -->
-            {% if pagina.paginator.num_pages > 1 %}
+            {% if pagina.has_other_pages %}
             <ul class="pagination justify-content-center">
-                <li class="page-item 
-                {% if not pagina.has_previous %}
-                    disabled
-                {% endif %}">
+                <li class="page-item {% if not pagina.has_previous %}disabled{% endif %}">
                     <a class="page-link"
                     {% if pagina.has_previous %}
-                        href="?page=1"
+                        href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
                     {% else %}
                         tabindex="-1"
                     {% endif %}
@@ -59,7 +56,7 @@
                 <li class="page-item">
                     <a class="page-link"
                     {% if pagina.has_previous %}
-                        href="?page={{ pagina.previous_page_number }}"
+                        href="?page={{ pagina.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
                     {% else %}
                         tabindex="-1"
                     {% endif %}
@@ -78,20 +75,17 @@
                 <li class="page-item">
                     <a class="page-link"
                     {% if pagina.has_next %}
-                        href="?page={{ pagina.next_page_number }}"
+                        href="?page={{ pagina.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
                     {% else %}
                         tabindex="-1"
                     {% endif %}
                     >{{ pagina.next_page_number }}</a>
                 </li>
                 {% endif %}
-                <li class="page-item 
-                {% if not pagina.has_next %}
-                    disabled
-                {% endif %}">
+                <li class="page-item {% if not pagina.has_next %}disabled{% endif %}">
                     <a class="page-link"
                     {% if pagina.has_next %}
-                        href="?page={{ pagina.paginator.num_pages }}"
+                        href="?page={{ pagina.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
                     {% else %}
                         tabindex="-1"
                     {% endif %}

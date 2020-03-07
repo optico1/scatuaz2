@@ -158,7 +158,7 @@ class TrabajadorForm(forms.ModelForm):
     )
     email = forms.CharField(
         required=False,
-        label='Correo Electronico',
+        label='Correo Electrónico',
         widget=forms.EmailInput(
             attrs={'class': 'form-control'}
         )

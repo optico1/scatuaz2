@@ -4,35 +4,35 @@ from .models import Trabajador, Actualizacion
 from .forms import TrabajadorForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # Create your views here.
 
 
 @login_required
-def buscar_trabajador(request):
-    query = request.GET.get('buscador')
-    trabajadores = Trabajador.objects.filter(
-        Q(nombre=query) | Q(paterno=query) | Q(materno=query) | Q(rfc=query)
-    )
-    context = {
-        'trabajadores': trabajadores,
-    }
-    return render(request, 'buscar_trabajador.html', context)
-
-
-@login_required
 def lista_trabajador(request):
     trabajadores = Trabajador.objects.all()
-    paginator = Paginator(trabajadores, 15)
+    query = request.GET.get('q')
+    print('query is', query)
+    if query:
+        print('WE ARE IN')
+        trabajadores = Trabajador.objects.filter(
+            Q(nombre=query) | Q(paterno=query) | Q(materno=query) | Q(rfc=query)
+        ).distinct()
 
+    paginator = Paginator(trabajadores, 10)
     numero_pagina = request.GET.get('page')
-    pagina = paginator.get_page(numero_pagina)
+    
+    try:
+        pagina = paginator.page(numero_pagina)
+    except PageNotAnInteger:
+        pagina = paginator.page(1)
+    except EmptyPage:
+        pagina = paginator.page(paginator.num_pages)
 
     context = {
         'pagina': pagina,
     }
-
     return render(request, 'lista_trabajador.html', context)
 
 
