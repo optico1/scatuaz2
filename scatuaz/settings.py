@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'trabajador',
     'login',
-    'usuario'
+    'usuario',
+    'archivero'
 ]
 
 MIDDLEWARE = [
@@ -104,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-mx'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Mexico_City'
 
 USE_I18N = True
 
@@ -116,6 +117,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+AUTH_USER_MODEL = 'usuario.UserSCATUAZ'
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
@@ -123,3 +126,4 @@ STATICFILES_DIRS = (
 LOGIN_REDIRECT_URL = 'lista_trabajador'
 LOGOUT_REDIRECT_URL = 'iniciar_sesion'
 LOGIN_URL = '/'
+

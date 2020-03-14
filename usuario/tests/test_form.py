@@ -39,7 +39,7 @@ class TestFormUsuario(TestCase):
         self.assertEquals(form.errors['username']
                           [0], 'El campo Usuario es obligatorio')
         self.assertEquals(form.errors['email'][0],
-                          'El campo Correo es obligatorio')
+                          'El campo Correo Electrónico es obligatorio')
         self.assertEquals(form.errors['password1']
                           [0], 'El campo Contraseña es obligatorio')
         self.assertEquals(form.errors['password2'][0],

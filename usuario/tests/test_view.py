@@ -212,7 +212,7 @@ class TestViewAgregarUsuario(TestCase):
             credenciales,
             follow=True
         )
-        self.assertInHTML('El campo Correo es obligatorio',
+        self.assertInHTML('El campo Correo Electrónico es obligatorio',
                           response.content.decode("utf-8"))
 
         credenciales['email'] = 'pablo@gmail.com'
@@ -406,7 +406,7 @@ class TestViewModificarUsuario(TestCase):
             credenciales,
             follow=True
         )
-        self.assertInHTML('El campo Correo es obligatorio',
+        self.assertInHTML('El campo Correo Electrónico es obligatorio',
                           response.content.decode("utf-8"))
 
     def test_cambiar_username_a_un_username_existente(self):

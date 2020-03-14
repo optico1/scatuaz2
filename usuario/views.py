@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import UsuarioForm, CambiarContrasenaForm, ModificarUsuarioForm
+from .models import UserSCATUAZ
 from django.contrib.auth import login, authenticate
 
 # Create your views here.
@@ -13,7 +13,7 @@ from django.contrib.auth import login, authenticate
 @login_required
 def lista_usuario(request):
     if request.user.is_superuser:
-        usuarios = User.objects.all()
+        usuarios = UserSCATUAZ.objects.all()
         context = {
             'actual': 'usuario',
             'usuarios': usuarios,
@@ -37,22 +37,26 @@ def agregar_usuario(request):
 @login_required
 def eliminar_usuario(request, id):
     if request.method == 'POST':
-        usuario = User.objects.get(pk=id)
+        usuario = UserSCATUAZ.objects.get(pk=id)
         usuario.delete()
         return redirect('lista_usuario')
     else:
-        usuario = User.objects.get(pk=id)
+        usuario = UserSCATUAZ.objects.get(pk=id)
         return render(request, 'confirm_delete_user.html', {'usuario': usuario})
 
 
 @login_required
 def modificar_usuario(request, id):
-    usuario = User.objects.get(pk=id)
+    usuario = UserSCATUAZ.objects.get(pk=id)
     if request.method == 'POST':
         form = ModificarUsuarioForm(request.POST, instance=usuario)
+        print(form)
         if form.is_valid():
+            print('es valido')
             form.save()
             return redirect('lista_usuario')
+        else:
+            print('no es valido')
     else:
         form = ModificarUsuarioForm(instance=usuario)
     return render(request, 'modificar_usuario.html', {'form': form, 'usuario': usuario})
@@ -60,7 +64,7 @@ def modificar_usuario(request, id):
 
 @login_required
 def cambiar_contrasena(request, id):
-    usuario = User.objects.get(pk=id)
+    usuario = UserSCATUAZ.objects.get(pk=id)
     if request.method == 'POST':
         form = CambiarContrasenaForm(usuario, data=request.POST)
         if form.is_valid():

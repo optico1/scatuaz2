@@ -1,9 +1,56 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
-from django.contrib.auth.models import User
+from .models import UserSCATUAZ
 
 
 class UsuarioForm(UserCreationForm):
+
+    first_name = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Escribe el nombre(s)',
+                'class': 'form-control form-control-sm'
+            }
+        ),
+        error_messages={
+            'required': 'El campo Nombre(s) es obligatorio',
+            'max_length': 'La longitud maxima es de 50',
+        },
+        label="Nombre(s)"
+    )
+
+    last_name = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Escribe el apellido paterno',
+                'class': 'form-control form-control-sm'
+            }
+        ),
+        error_messages={
+            'required': 'El campo Apellido Paterno es obligatorio',
+            'max_length': 'La longitud maxima es de 50',
+        },
+        label="Apellido Paterno"
+    )
+
+    materno = forms.CharField(
+        max_length=50,
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Escribe el apellido materno',
+                'class': 'form-control form-control-sm'
+            }
+        ),
+        error_messages={
+            'max_length': 'La longitud maxima es de 50',
+        },
+        label="Apellido Materno"
+    )
 
     username = forms.CharField(
         max_length=50,
@@ -25,7 +72,7 @@ class UsuarioForm(UserCreationForm):
 
     email = forms.EmailField(
         max_length=50,
-        required=True,
+        required=False,
         widget=forms.EmailInput(
             attrs={
                 'placeholder': 'Escribe el correo',
@@ -33,10 +80,10 @@ class UsuarioForm(UserCreationForm):
             }
         ),
         error_messages={
-            'required': 'El campo Correo es obligatorio',
+            'required': 'El campo Correo Electrónico es obligatorio',
             'max_length': 'La longitud maxima es de 50',
         },
-        label="Correo"
+        label="Correo Electrónico"
     )
 
     password1 = forms.CharField(
@@ -86,9 +133,10 @@ class UsuarioForm(UserCreationForm):
     )
 
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1',
-                  'password2', 'is_superuser']
+        model = UserSCATUAZ
+        fields = ['first_name', 'last_name', 'materno',
+                'username', 'email', 'password1',
+                'password2', 'is_superuser']
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
@@ -168,22 +216,45 @@ class CambiarContrasenaForm(SetPasswordForm):
 
 class ModificarUsuarioForm(UserChangeForm):
 
-    username = forms.CharField(
-        max_length=50,
-        min_length=5,
+    first_name = forms.CharField(
         required=True,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Escribe el usuario',
+                'placeholder': 'Escribe el nombre(s)',
                 'class': 'form-control form-control-sm'
             }
         ),
         error_messages={
-            'required': 'El campo Usuario es obligatorio',
+            'required': 'El campo Nombre(s) es obligatorio',
             'max_length': 'La longitud maxima es de 50',
-            'min_length': 'La longitud minima es de 5',
         },
-        label="Usuario"
+        label="Nombre(s)"
+    )
+
+    last_name = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Escribe el apellido paterno',
+                'class': 'form-control form-control-sm'
+            }
+        ),
+        error_messages={
+            'required': 'El campo Apellido Paterno es obligatorio',
+            'max_length': 'La longitud maxima es de 50',
+        },
+        label="Apellido Paterno"
+    )
+
+    materno = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Escribe el apellido materno',
+                'class': 'form-control form-control-sm'
+            }
+        ),
+        label="Apellido Materno"
     )
 
     email = forms.EmailField(
@@ -195,9 +266,9 @@ class ModificarUsuarioForm(UserChangeForm):
             }
         ),
         error_messages={
-            'required': 'El campo Correo es obligatorio',
+            'required': 'El campo Correo Electrónico es obligatorio',
         },
-        label="Correo"
+        label="Correo Electrónico"
     )
 
     is_superuser = forms.BooleanField(
@@ -211,8 +282,9 @@ class ModificarUsuarioForm(UserChangeForm):
     )
 
     class Meta:
-        model = User
-        fields = ['username', 'email', 'is_superuser']
+        model = UserSCATUAZ
+        fields = ['first_name', 'last_name', 'materno',
+            'email', 'is_superuser']
 
     def save(self, commit=True):
         user = super(ModificarUsuarioForm, self).save(commit=False)

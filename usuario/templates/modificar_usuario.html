@@ -16,17 +16,43 @@
         
                     <div class="card mb-3 shadow">
                         <div class="card-header">
-                            <h4 class="card-title mb-0">Datos</h4>
+                            <h4 class="card-title mb-0">Datos del Usuario</h4>
                         </div>
                         <div class="card-body pb-0">
                             <div class="form-row justify-content-center">
-                                <div class="form-group col-md-11">
-                                    <label for="id_username">
-                                        {{form.username.label}}
+                                <div class="form-group col-11">
+                                    <label for="id_nombres">
+                                        *{{form.first_name.label}}
                                     </label>
-                                    {{form.username}}
-                                    {% for error in form.username.errors %}
-                                        <p class="text-danger text-center">
+                                    {{form.first_name}}
+                                    {% for error in form.first_name.errors %}
+                                        <p class="text-danger text-center pb-0 mb-0">
+                                            {{error}}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="form-row justify-content-center">
+                                <div class="form-group col-11">
+                                    <label for="id_paterno">
+                                        *{{form.last_name.label}}
+                                    </label>
+                                    {{form.last_name}}
+                                    {% for error in form.last_name.errors %}
+                                        <p class="text-danger text-center pb-0 mb-0">
+                                            {{error}}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="form-row justify-content-center">
+                                <div class="form-group col-11">
+                                    <label for="id_materno">
+                                        {{form.materno.label}}
+                                    </label>
+                                    {{form.materno}}
+                                    {% for error in form.materno.errors %}
+                                        <p class="text-danger text-center pb-0 mb-0">
                                             {{error}}
                                         </p>
                                     {% endfor %}
