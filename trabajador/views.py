@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from .models import Trabajador, Actualizacion
 from .forms import TrabajadorForm
-from django.contrib.auth.models import User
+from usuario.models import UserSCATUAZ
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
@@ -40,7 +40,7 @@ def lista_trabajador(request):
 @login_required
 def ver_trabajador(request, id):
     trabajador = Trabajador.objects.get(pk=id)
-    usuario = User.objects.get(pk=trabajador.alta_usuario)
+    usuario = UserSCATUAZ.objects.get(pk=trabajador.alta_usuario)
     try:
         actualizaciones = Actualizacion.objects.filter(id_trabajador=id)
     except:
