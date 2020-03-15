@@ -113,7 +113,7 @@ class Trabajador(models.Model):
     )
     # DATOS DE ALTA
     alta_usuario = models.CharField(
-        max_length=10
+        max_length=150
     )
     alta_fecha = models.DateField(
         auto_now=False,

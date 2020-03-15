@@ -40,14 +40,12 @@ def lista_trabajador(request):
 @login_required
 def ver_trabajador(request, id):
     trabajador = Trabajador.objects.get(pk=id)
-    usuario = UserSCATUAZ.objects.get(pk=trabajador.alta_usuario)
     try:
         actualizaciones = Actualizacion.objects.filter(id_trabajador=id)
     except:
         actualizaciones = ()
     context = {
         'trabajador': trabajador,
-        'usuario': usuario,
         'actualizaciones': actualizaciones
     }
 
@@ -60,7 +58,8 @@ def agregar_trabajador(request):
         form = TrabajadorForm(request.POST)
         if form.is_valid():
             tmp = form.save(commit=False)
-            tmp.alta_usuario = request.user.id
+            usuario = UserSCATUAZ.objects.get(pk=request.user.id)
+            tmp.alta_usuario = usuario
             tmp.save()
             return redirect('lista_trabajador')
     else:

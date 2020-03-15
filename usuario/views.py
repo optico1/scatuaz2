@@ -59,7 +59,7 @@ def modificar_usuario(request, id):
             print('no es valido')
     else:
         form = ModificarUsuarioForm(instance=usuario)
-    return render(request, 'modificar_usuario.html', {'form': form, 'usuario': usuario})
+    return render(request, 'modificar_usuario.html', {'form': form, 'usuario': usuario, 'nombre': usuario.__str__})
 
 
 @login_required

@@ -7,3 +7,5 @@ class UserSCATUAZ(AbstractUser):
         max_length=50,
     )
     
+    def __str__(self):
+        return str(self.first_name+' '+self.last_name)

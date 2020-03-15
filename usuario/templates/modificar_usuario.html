@@ -9,49 +9,23 @@
 
                     <div class="row">
                         <div class="col">
-                            <h1 class="card-title">Modificar Usuario</h1>
+                            <h1 class="card-title text-primary">Modificar Usuario</h1>
                         </div>
                     </div>
         
-        
+                    
                     <div class="card mb-3 shadow">
                         <div class="card-header">
-                            <h4 class="card-title mb-0">Datos del Usuario</h4>
+                            <h4 class="card-title mb-0">{{usuario.first_name}} {{usuario.last_name}} {{usuario.materno}}</h4>
                         </div>
                         <div class="card-body pb-0">
                             <div class="form-row justify-content-center">
                                 <div class="form-group col-11">
-                                    <label for="id_nombres">
-                                        *{{form.first_name.label}}
+                                    <label for="id_usuario">
+                                        {{form.username.label}}
                                     </label>
-                                    {{form.first_name}}
-                                    {% for error in form.first_name.errors %}
-                                        <p class="text-danger text-center pb-0 mb-0">
-                                            {{error}}
-                                        </p>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <div class="form-row justify-content-center">
-                                <div class="form-group col-11">
-                                    <label for="id_paterno">
-                                        *{{form.last_name.label}}
-                                    </label>
-                                    {{form.last_name}}
-                                    {% for error in form.last_name.errors %}
-                                        <p class="text-danger text-center pb-0 mb-0">
-                                            {{error}}
-                                        </p>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <div class="form-row justify-content-center">
-                                <div class="form-group col-11">
-                                    <label for="id_materno">
-                                        {{form.materno.label}}
-                                    </label>
-                                    {{form.materno}}
-                                    {% for error in form.materno.errors %}
+                                    {{form.username}}
+                                    {% for error in form.username.errors %}
                                         <p class="text-danger text-center pb-0 mb-0">
                                             {{error}}
                                         </p>
@@ -75,14 +49,16 @@
                                 <div class="form-group col-md-11">
                                     <div class="form-inline justify-content-center">
                                         {{form.is_superuser}}
-                                        <label class="form-check-label text-primary" for="id_is_superuser">
+                                        <label class="form-check-label text-secondary" for="id_is_superuser">
                                             {{form.is_superuser.label}}
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row justify-content-center mb-3">
-                                <a href="{% url "cambiar_contrasena" usuario.id %}">Cambiar contraseña</a>
+                                <a href="{% url "cambiar_contrasena" usuario.id %}" class="text-primary">
+                                    Cambiar contraseña
+                                </a>
                             </div>
                         </div>
                     </div>

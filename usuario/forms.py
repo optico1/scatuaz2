@@ -39,7 +39,7 @@ class UsuarioForm(UserCreationForm):
 
     materno = forms.CharField(
         max_length=50,
-        required=False,
+        required=True,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Escribe el apellido materno',
@@ -216,45 +216,22 @@ class CambiarContrasenaForm(SetPasswordForm):
 
 class ModificarUsuarioForm(UserChangeForm):
 
-    first_name = forms.CharField(
+    username = forms.CharField(
+        max_length=50,
+        min_length=5,
         required=True,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Escribe el nombre(s)',
+                'placeholder': 'Escribe el usuario',
                 'class': 'form-control form-control-sm'
             }
         ),
         error_messages={
-            'required': 'El campo Nombre(s) es obligatorio',
+            'required': 'El campo Usuario es obligatorio',
             'max_length': 'La longitud maxima es de 50',
+            'min_length': 'La longitud minima es de 5',
         },
-        label="Nombre(s)"
-    )
-
-    last_name = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Escribe el apellido paterno',
-                'class': 'form-control form-control-sm'
-            }
-        ),
-        error_messages={
-            'required': 'El campo Apellido Paterno es obligatorio',
-            'max_length': 'La longitud maxima es de 50',
-        },
-        label="Apellido Paterno"
-    )
-
-    materno = forms.CharField(
-        required=False,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Escribe el apellido materno',
-                'class': 'form-control form-control-sm'
-            }
-        ),
-        label="Apellido Materno"
+        label="Usuario"
     )
 
     email = forms.EmailField(
@@ -283,8 +260,7 @@ class ModificarUsuarioForm(UserChangeForm):
 
     class Meta:
         model = UserSCATUAZ
-        fields = ['first_name', 'last_name', 'materno',
-            'email', 'is_superuser']
+        fields = ['username', 'email', 'is_superuser']
 
     def save(self, commit=True):
         user = super(ModificarUsuarioForm, self).save(commit=False)
