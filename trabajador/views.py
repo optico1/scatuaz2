@@ -93,7 +93,7 @@ def modificar_trabajador(request, id):
         if form.is_valid():
             form.save()
             Actualizacion.objects.create(
-                id_trabajador=trabajador, usuario=request.user.username)
+                id_trabajador=trabajador, usuario=request.user)
             return redirect('lista_trabajador')
     else:
         form = TrabajadorForm(instance=trabajador)

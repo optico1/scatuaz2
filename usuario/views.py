@@ -24,61 +24,76 @@ def lista_usuario(request):
 
 @login_required
 def agregar_usuario(request):
-    if request.method == 'POST':
-        form = UsuarioForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_usuario')
-    else:
-        form = UsuarioForm()
-    return render(request, 'agregar_usuario.html', {'form': form})
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = UsuarioForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('lista_usuario')
+        else:
+            form = UsuarioForm()
+        return render(request, 'agregar_usuario.html', {'form': form})
+    return redirect('lista_trabajador')
+    
 
 
 @login_required
 def eliminar_usuario(request, id):
-    if request.method == 'POST':
-        usuario = UserSCATUAZ.objects.get(pk=id)
-        usuario.delete()
-        return redirect('lista_usuario')
-    else:
-        usuario = UserSCATUAZ.objects.get(pk=id)
-        return render(request, 'confirm_delete_user.html', {'usuario': usuario})
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            usuario = UserSCATUAZ.objects.get(pk=id)
+            usuario.delete()
+            return redirect('lista_usuario')
+        else:
+            usuario = UserSCATUAZ.objects.get(pk=id)
+            return render(request, 'confirm_delete_user.html', {'usuario': usuario})
+    return redirect('lista_trabajador')
+        
 
 
 @login_required
 def modificar_usuario(request, id):
-    usuario = UserSCATUAZ.objects.get(pk=id)
-    if request.method == 'POST':
-        form = ModificarUsuarioForm(request.POST, instance=usuario)
-        print(form)
-        if form.is_valid():
-            print('es valido')
-            form.save()
-            return redirect('lista_usuario')
+    if request.user.is_superuser:
+        usuario = UserSCATUAZ.objects.get(pk=id)
+        if request.method == 'POST':
+            form = ModificarUsuarioForm(request.POST, instance=usuario)
+            print(form)
+            if form.is_valid():
+                print('es valido')
+                form.save()
+                return redirect('lista_usuario')
+            else:
+                print('no es valido')
         else:
-            print('no es valido')
-    else:
-        form = ModificarUsuarioForm(instance=usuario)
-    return render(request, 'modificar_usuario.html', {'form': form, 'usuario': usuario, 'nombre': usuario.__str__})
+            form = ModificarUsuarioForm(instance=usuario)
+        return render(request, 'modificar_usuario.html', {'form': form, 'usuario': usuario, 'nombre': usuario.__str__})
+    return redirect('lista_trabajador')
+
 
 
 @login_required
 def cambiar_contrasena(request, id):
-    usuario = UserSCATUAZ.objects.get(pk=id)
-    if request.method == 'POST':
-        form = CambiarContrasenaForm(usuario, data=request.POST)
-        if form.is_valid():
-            form.clean_new_password2()
-            form.save()
-            return redirect('lista_usuario')
-    else:
-        form = CambiarContrasenaForm(usuario)
-    return render(request, 'cambiar_contrasena.html', {'form': form, 'usuario': usuario})
+    if request.user.is_superuser:
+        usuario = UserSCATUAZ.objects.get(pk=id)
+        if request.method == 'POST':
+            form = CambiarContrasenaForm(usuario, data=request.POST)
+            if form.is_valid():
+                form.clean_new_password2()
+                form.save()
+                return redirect('lista_usuario')
+        else:
+            form = CambiarContrasenaForm(usuario)
+        return render(request, 'cambiar_contrasena.html', {'form': form, 'usuario': usuario})
+    return redirect('lista_trabajador')
+    
 
 @login_required
 def ver_usuario(request, id):
-    usuario = UserSCATUAZ.objects.get(pk=id)
-    context = {
-        'usuario': usuario,
-    }
-    return render(request, 'ver_usuario.html', context)
+    if request.user.is_superuser:
+        usuario = UserSCATUAZ.objects.get(pk=id)
+        context = {
+            'usuario': usuario,
+        }
+        return render(request, 'ver_usuario.html', context)
+    return redirect('lista_trabajador')
+    
