@@ -16,12 +16,12 @@
             <h4>No hay registros</h4>
         {% else %}
             <table class="table table-dark rounded-lg shadow r-click">
-                <thead class="thead-dark">
-                    <th>Paterno</th>
-                    <th>Materno</th>
-                    <th>Nombre</th>
-                    <th>RFC</th>
-                    <th class="text-center">Opciones</th>
+                <thead>
+                    <th class="border-top-0">Paterno</th>
+                    <th class="border-top-0">Materno</th>
+                    <th class="border-top-0">Nombre</th>
+                    <th class="border-top-0">RFC</th>
+                    <th class="text-center border-top-0">Opciones</th>
                 </thead>
                 <tbody>
 
@@ -32,8 +32,8 @@
                             <td>{{trabajador.nombre}}</td>
                             <td>{{trabajador.rfc}}</td>
                             <td class="text-center">
-                                <a href="{% url "eliminar_trabajador" trabajador.id %}" class="btn btn-danger btn-sm mr-4">Eliminar</a>
-                                <a href="{% url "modificar_trabajador" trabajador.id %}" class="btn btn-primary btn-sm">Editar</a>
+                                <a href="{% url "modificar_trabajador" trabajador.id %}" class="btn btn-primary btn-sm mr-4">Editar</a>
+                                <a href="{% url "eliminar_trabajador" trabajador.id %}" class="btn btn-danger btn-sm">Eliminar</a>
                             </td>
                         </tr>
                     {% endfor %}

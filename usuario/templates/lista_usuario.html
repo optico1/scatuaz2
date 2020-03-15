@@ -15,18 +15,22 @@
         {% if usuarios|length == 0 %}
             <h4>No hay usuarios</h4>
         {% else %}
-            <table class="table table-dark rounded-lg shadow r-click">
-                <thead class="thead-dark">
-                    <th>Usuario</th>
-                    <th>Correo Electrónico</th>
-                    <th class="text-center">Admin</th>
-                    <th class="text-center">Opciones</th>
+            <table class="table table-dark shadow r-click rounded-lg">
+                <thead>
+                    <th class="border-top-0">Nombre(s)</th>
+                    <th class="border-top-0">Apellido Paterno</th>
+                    <th class="border-top-0">Apellido Materno</th>
+                    <th class="border-top-0">Correo Electrónico</th>
+                    <th class="text-center border-top-0">Admin</th>
+                    <th class="text-center border-top-0">Opciones</th>
                 </thead>
                 <tbody>
 
                     {% for usuario in usuarios %}
                         <tr onclick="verDetalle({{usuario.id}})" class="clickable">
-                            <td>{{usuario.username}}</td>
+                            <td>{{usuario.first_name}}</td>
+                            <td>{{usuario.last_name}}</td>
+                            <td>{{usuario.materno}}</td>
                             <td>{{usuario.email}}</td>
                             <td class="text-center">
                                 {% if usuario.is_superuser == 1 %}
@@ -36,8 +40,8 @@
                                 {% endif %}
                             </td>
                             <td class="text-center">
-                                <a href="{% url "eliminar_usuario" usuario.id %}" class="btn btn-danger btn-sm mr-4">Eliminar</a>
-                                <a href="{% url "modificar_usuario" usuario.id %}" class="btn btn-primary btn-sm">Editar</a>
+                                <a href="{% url "modificar_usuario" usuario.id %}" class="btn btn-primary btn-sm mr-4">Editar</a>
+                                <a href="{% url "eliminar_usuario" usuario.id %}" class="btn btn-danger btn-sm">Eliminar</a>
                             </td>
                         </tr>
                     {% endfor %}

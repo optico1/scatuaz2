@@ -1,12 +1,13 @@
 {% extends 'base.html' %} {% block contenido %}
 
         <div class="row justify-content-around mb-4 pt-3">
-            <div class="col-md-5 text-center align-self-center">
-                <h3 class="card-title mb-4">
+            <div class="col-md-8 text-center align-self-center">
+                <h1 class="card-title mb-0">
                     {{trabajador.nombre}} {{trabajador.paterno}}
                     {{trabajador.materno}}
-                </h3>
-                <div class="form-check">
+                </h1>
+                <small class="text-primary">{{trabajador.alta_usuario}} {{trabajador.alta_fecha}}</small>
+                <div class="form-check mt-3">
                     {% if trabajador.validado_renapo %}
                     <input
                         type="checkbox"
@@ -27,7 +28,7 @@
                         Validado por RENAPO
                     </label>
                 </div>
-                <div class="form-check mb-4">
+                <div class="form-check">
                     {% if trabajador.validado_siri %}
                     <input
                         type="checkbox"
@@ -50,108 +51,30 @@
                 </div>
             </div>
 
-            <div class="col-md-4 align-self-center">
-                <div class="accordion" id="accordion-alta">
-                    <div class="card shadow make-short">
-                        <div class="card-header m-0 p-0" id="heading-alta">
-                            <h4 class="mb-0">
-                                <button
-                                    class="btn btn-link"
-                                    type="button"
-                                    data-toggle="collapse"
-                                    data-target="#collapse-alta"
-                                    aria-expanded="true"
-                                    aria-controls="collapse-alta"
-                                >
-                                    Alta de Registro
-                                </button>
-                            </h4>
-                        </div>
-                        <div
-                            id="collapse-alta"
-                            class="collapse"
-                            aria-labelledby="heading-alta"
-                            data-parent="#accordion-alta"
-                        >
-                            <div class="card-body pb-1 pt-1">
-                                <div class="form-row justify-content-center">
-                                    <div class="form-group make-form-short pr-3">
-                                        <label for="id_paterno">
-                                            <small>Usuario</small>
-                                        </label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            class="form-control form-control-sm"
-                                            value="{{trabajador.alta_usuario}}"
-                                        />
-                                    </div>
-                                    <div class="form-group make-form-short">
-                                        <label for="id_paterno">
-                                            <small>Fecha de Alta</small>
-                                        </label>
-                                        <input
-                                            disabled
-                                            type="text"
-                                            class="form-control form-control-sm"
-                                            value="{{trabajador.alta_fecha}}"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
             {% if actualizaciones|length > 0 %}
             
-            <div class="col-md-3 align-self-center">
-                <div class="accordion" id="accordion-historial">
-                    <div class="card shadow">
-                        <div class="card-header m-0 p-0" id="heading-historial">
-                            <h4 class="mb-0">
-                                <button
-                                    class="btn btn-link"
-                                    type="button"
-                                    data-toggle="collapse"
-                                    data-target="#collapse-historial"
-                                    aria-expanded="true"
-                                    aria-controls="collapse-historial"
-                                >
-                                    Historial del Registro
-                                </button>
-                            </h4>
-                        </div>
-                        <div
-                            id="collapse-historial"
-                            class="collapse"
-                            aria-labelledby="heading-historial"
-                            data-parent="#accordion-historial"
-                        >
-                            <div class="card-body">
-                                <table class="table table-sm text-center">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col"><small>Usuario</small></th>
-                                            <th scope="col"><small>Fecha de Actualizacion</small></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                        {% for actualizacion in actualizaciones %}  
-                                        <tr>
-                                            <td><small>{{actualizacion.usuario}}</small></td>
-                                            <td><small>{{actualizacion.fecha}}</small></td>
-                                        </tr>
-                                        {% endfor %}
-                                            
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-4 align-self-center">
+                <table class="table table-dark table-sm text-center shadow rounded-lg">
+                    <thead class="">
+                        <tr>
+                            <th class="border-top-0" colspan="2"><small><b>Historial de Registro</b></small></th>
+                        </tr>
+                        <tr>
+                            <th scope="col"><small><b>Usuario</b></small></th>
+                            <th scope="col"><small><b>Fecha de Actualizacion</b></small></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for actualizacion in actualizaciones %}  
+                        <tr>
+                            <td><small>{{actualizacion.usuario}}</small></td>
+                            <td><small>{{actualizacion.fecha}}</small></td>
+                        </tr>
+                        {% endfor %}
+                            
+                    </tbody>
+                </table>    
             </div>
             {% else %}
 
@@ -162,7 +85,7 @@
                 
         </div>
 
-        <div class="card mb-3 shadow">
+        <div class="card text-white bg-dark mb-3 shadow">
             <div class="card-header">
                 <h4 class="card-title mb-0">Datos Personales</h4>
             </div>
@@ -241,7 +164,7 @@
             </div>
         </div>
 
-        <div class="card mb-3 shadow">
+        <div class="card text-white bg-dark mb-3 shadow">
             <div class="card-header">
                 <h4 class="card-title mb-0">Datos de Residencia</h4>
             </div>
@@ -357,7 +280,7 @@
             </div>
         </div>
 
-        <div class="card mb-3 shadow">
+        <div class="card text-white bg-dark mb-3 shadow">
             <div class="card-header">
                 <h4 class="card-title mb-0">Datos Laborales</h4>
             </div>
@@ -390,7 +313,7 @@
             </div>
         </div>
 
-        <div class="card mb-3 shadow">
+        <div class="card text-white bg-dark mb-3 shadow">
             <div class="card-header">
                 <h4 class="card-title mb-0">Datos Academicos</h4>
             </div>
@@ -412,7 +335,7 @@
             </div>
         </div>
 
-        <div class="card mb-3 shadow">
+        <div class="card text-white bg-dark mb-3 shadow">
             <div class="card-header">
                 <h4 class="card-title mb-0">Datos de ISSSTE</h4>
             </div>
