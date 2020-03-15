@@ -74,3 +74,11 @@ def cambiar_contrasena(request, id):
     else:
         form = CambiarContrasenaForm(usuario)
     return render(request, 'cambiar_contrasena.html', {'form': form, 'usuario': usuario})
+
+@login_required
+def ver_usuario(request, id):
+    usuario = UserSCATUAZ.objects.get(pk=id)
+    context = {
+        'usuario': usuario,
+    }
+    return render(request, 'ver_usuario.html', context)
