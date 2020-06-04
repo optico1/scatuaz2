@@ -1,11 +1,11 @@
 pipeline{
 	agent any
 	stages{
-	    stage('Instalción'){
+	    stage('Instalación'){
 			steps{
-			    echo "apt-get update"
-				echo "apt-get install python3 python3-pip"
-				echo "pip install virtualenv"
+			    echo "sudo apt-get update"
+				echo "sudo apt-get install python3 python3-pip"
+				echo "sudo pip install virtualenv"
 				echo "virtualenv entorno"
 				echo "source entorno/bin/activate"
 				echo "pip install -r requirements.txt"
@@ -13,25 +13,30 @@ pipeline{
 		}
 		stage('Verificación de código'){
 			steps{
-				echo "Verifica estándar de código"
-				echo "Verifica complejidad ciclomática"
+				echo "autopep8 -i *.py */*.py"
+				echo "flake8 --exclude = *migrations*,*settings*"
 			}
 		}
 		stage('Testing'){
 			steps{
-				echo "Ejecución de pruebas unitarias"
-				echo "Ejecución de pruebas de aceptación"
-				echo "Verfica coverage"
+				echo "python manage.py test Trabajaor"
+				echo "behave  features/*.feature"
+				echo "coverage run --source = '.' --omit = *test*, *migrations*, *__init* manage.py"
+				echo "coverage report"
+				echo "coverage html"
 			}
 		}
 		stage('Build'){
 			steps{
-				echo "Crea el arvhivo .war"
+				echo "jar cvf SCATUAZ.war"
+				echo "sudo cp -r /home/vagrant/SCATUAZ/SCATUAZ.war /var/lib/tomcat8/webapps/SCATUAZ.war"
+				echo "systemctl reload tomcat8"
 			}
 		}
 		stage('Servidor de pre-producción'){
 			steps{
-				echo "Copia la aplicación al servidor de pruebas"
+				echo "sudo a2ensite configuracion.conf"
+				echo "systemctl reload apache2"
 			}
 		}
 		stage('Servidor de producción'){
@@ -40,7 +45,9 @@ pipeline{
 			        ok "Si"
 			}
 			steps{
-				echo "Copia la aplicación al servidor de producción"
+				echo "sudo a2ensite configuracion.conf"
+				echo "systemctl reload apache2"
+
 			}
 		}
 	}
