@@ -21,9 +21,9 @@ pipeline{
 			steps{
 				echo "python manage.py test Trabajaor"
 				echo "behave  features/*.feature"
-				coverage run --source = '.' --omit = *test*, *migrations*, *__init* manage.py
-				coverage report
-				coverage html
+				echo "coverage run --source = '.' --omit = *test*, *migrations*, *__init* manage.py"
+				echo "coverage report"
+				echo "coverage html"
 			}
 		}
 		stage('Build'){
