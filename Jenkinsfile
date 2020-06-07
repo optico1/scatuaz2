@@ -2,7 +2,7 @@ pipeline{
 	agent any
 	stages{
 	    stage('Instalación'){
-			steps{
+		    steps{
 			    sh "ansible-playbook -i ./ Pipeline.yml"
 			}
 		}
