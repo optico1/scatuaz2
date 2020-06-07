@@ -27,9 +27,9 @@ pipeline{
 			}
 		}
 		stage('Servidor de pre-producción'){
-			steps{
+		      steps{
 				sh "ansible-playbook -i ./ pre_aws_ec2.yml ./ deployment.yml"	
-			}
+		      }
 		}
 		stage('Servidor de producción'){
 			input{
