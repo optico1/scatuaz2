@@ -3,7 +3,7 @@
 
 
 - name: Playbook de instalacion con pipeline
-  hosts: ec2-35-153-194-78.compute-1.amazonaws.com
+  hosts: ec2-100-25-171-202.compute-1.amazonaws.com
 #  remote_user: ubuntu
   become: True
 
