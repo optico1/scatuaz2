@@ -7,10 +7,6 @@ pipeline{
 			}
 		}
 		stage('Verificación de código'){
-			environment{
-				AWS_ACCESS_KEY_ID='AKIAJAI5GCXWYCRHPAUQ'
-				AWS_SECRET_ACCESS_KEY='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'
-			}
 			steps{
 				//sh ". /home/ubuntu/SCATUAZ/env_scatuaz/bin/activate"
 				sh "autopep8 -i *.py */*.py"
