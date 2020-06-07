@@ -3,7 +3,7 @@ pipeline{
 	stages{
 	    stage('Instalación'){
 			steps{
-			    sh "ansible-playbook -i ./ jenkins ./ Pipeline.yml"
+			    sh "ansible-playbook -i ./ Pipeline.yml"
 			}
 		}
 		stage('Verificación de código'){
