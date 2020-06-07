@@ -8,7 +8,7 @@ pipeline{
 		}
 		stage('Verificación de código'){
 			steps{
-				sh ". env_scatuaz/bin/activate"
+				sh ". /home/ubuntu/SCATUAZ/env_scatuaz/bin/activate"
 				sh "autopep8 -i *.py */*.py"
 				sh "flake8 --exclude = *migrations*,*settings*"
 			}
