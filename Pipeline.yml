@@ -1,0 +1,134 @@
+
+---
+
+
+- name: Playbook de instalacion con pipeline
+  hosts: ec2-35-153-194-78.compute-1.amazonaws.com
+#  remote_user: ubuntu
+  become: True
+
+#PAQUETES
+  vars:
+   - paquetes:
+       - software-properties-common
+       - apache2
+       - mariadb-server
+       - xvfb
+       - libmysqlclient-dev
+       - build-essential
+       - python3-pip
+       - python3-dev
+       - python3-setuptools
+       - python3-wheel
+       - python3-cffi
+       - python3-mysqldb
+       - libcairo2
+       - libpango-1.0-0
+       - libpangocairo-1.0-0
+       - libgdk-pixbuf2.0-0
+       - libffi-dev
+       - shared-mime-info
+       - libapache2-mod-wsgi-py3
+#BD
+   - bd: scatuaz
+   - bd_usuario: tigrito
+   - bd_contra: "tigrito123@"
+
+#RUTA
+   - rutaProyecto: "/home/ubuntu/SCATUAZ/"
+
+  tasks:
+#PAQUETES
+  - name: Actualización de paquetes
+    apt:
+      update-cache: yes
+
+  - name: Instalación de paquetes
+    apt:
+      name: "{{ paquetes }}"
+      state: present
+
+  - name: Agregar repositorio ansible
+    become: true
+    command:
+       cmd: apt-add-repository --yes --update ppa:ansible/ansible
+
+  - name: Intalación de ansible
+    apt:
+      name: ansible
+      state: present
+      
+      
+#PROYECTO SCATUAZ
+  - name: Clonar el proyecto SCATUAZ
+    git:
+      repo: 'https://github.com/friedteeth/scatuaz.git'
+      dest: "{{rutaProyecto}}"
+      
+
+#VIRTUALENV
+  - name: Instalar virtualenv
+    pip:
+      name: virtualenv
+      state: latest
+
+  - name: Crear virtualenv
+    command:
+      cmd: virtualenv "{{rutaProyecto + '/env_scatuaz'}}" -p python3
+      creates: "{{rutaProyecto + '/env_scatuaz'}}"
+
+  - name: Instalar requerimientos SCATUAZ
+    become: true
+    pip:
+      requirements: "{{rutaProyecto + '/requirements.txt'}}"
+      virtualenv: "{{rutaProyecto + '/env_scatuaz'}}"
+
+
+#BASE DE DATOS
+  - name: Crear base de datos
+    mysql_db:
+      name: "{{bd}}"
+      state: present
+
+  - name: Crear usuario
+    mysql_user:
+      name: "{{bd_usuario}}"
+      password: "{{ bd_contra }}"
+      priv: '{{bd}}.*:ALL'
+      host: localhost
+      state: present
+
+
+#SCATUAZ
+  - name: Ajuste de permisos
+    file:
+      path: "{{rutaProyecto +'/manage.py'}}"
+      mode: '1777'
+
+  - name: Ejecutar migraciones
+    become: True
+    django_manage:
+      command: migrate
+      app_path: "{{rutaProyecto}}"
+      virtualenv: "{{rutaProyecto + '/env_scatuaz'}}"
+
+
+#APACHE2
+  - name: Crear archivo de configuracion para el proyecto
+    become: True
+    copy:
+        src: ./SCATUAZ.conf
+        dest: /etc/apache2/sites-available/
+
+  - name: Habilitar archivo de configuracion del proyecto
+    become: true
+    command:
+       chdir: /etc/apache2/sites-available/
+       cmd: sudo a2ensite SCATUAZ.conf
+
+  - name: Reiniciar apache2
+    become: true
+    command:
+      chdir: /etc/apache2/sites-available/
+      cmd: sudo systemctl reload apache2
+
