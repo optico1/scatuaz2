@@ -3,7 +3,7 @@ pipeline{
 	stages{
 	    stage('Instalación'){
 			steps{
-			    sh "ansible-playbook -i ./ jenkins ./ deployment.yml"
+			    sh "ansible-playbook -i ./ jenkins ./ Pipeline.yml"
 			}
 		}
 		stage('Verificación de código'){
@@ -28,7 +28,7 @@ pipeline{
 		}
 		stage('Servidor de pre-producción'){
 		      steps{
-				sh "ansible-playbook -i ./ pre_aws_ec2.yml ./ deployment.yml"	
+				sh "ansible-playbook -i ./ pre_aws_ec2.yml ./ Pipeline.yml"	
 		      }
 		}
 		stage('Servidor de producción'){
@@ -37,7 +37,7 @@ pipeline{
 			        ok "Si"
 			}
 			steps{
-				echo "ansible-playbook -i ./ deployment.yml"
+				echo "ansible-playbook -i ./ Pipeline.yml"
 			}
 		}
 	}
