@@ -3,40 +3,32 @@ pipeline{
 	stages{
 	    stage('Instalación'){
 			steps{
-			    echo "sudo apt-get update"
-				echo "sudo apt-get install python3 python3-pip"
-				echo "sudo pip install virtualenv"
-				echo "virtualenv entorno"
-				echo "source entorno/bin/activate"
-				echo "pip install -r requirements.txt"
+			    sh "ansible-playbook -i ./ deployment.yml"
 			}
 		}
 		stage('Verificación de código'){
 			steps{
-				echo "autopep8 -i *.py */*.py"
-				echo "flake8 --exclude = *migrations*,*settings*"
+				sh "autopep8 -i *.py */*.py"
+				sh "flake8 --exclude = *migrations*,*settings*"
 			}
 		}
 		stage('Testing'){
 			steps{
-				echo "python manage.py test Trabajaor"
-				echo "behave  features/*.feature"
-				echo "coverage run --source = '.' --omit = *test*, *migrations*, *__init* manage.py"
-				echo "coverage report"
-				echo "coverage html"
+				sh "python manage.py test Trabajaor"
+				sh "behave  features/*.feature"
+				sh "coverage run --source = '.' --omit = *test*, *migrations*, *__init* manage.py"
+				sh "coverage report"
+				sh "coverage html"
 			}
 		}
 		stage('Build'){
 			steps{
-				echo "jar cvf SCATUAZ.war"
-				echo "sudo cp -r /home/vagrant/SCATUAZ/SCATUAZ.war /var/lib/tomcat8/webapps/SCATUAZ.war"
-				echo "systemctl reload tomcat8"
+				echo "Build"
 			}
 		}
 		stage('Servidor de pre-producción'){
 			steps{
-				echo "sudo a2ensite configuracion.conf"
-				echo "systemctl reload apache2"
+				echo "ansible-playbook -i ./ deployment.yml"	
 			}
 		}
 		stage('Servidor de producción'){
@@ -45,9 +37,7 @@ pipeline{
 			        ok "Si"
 			}
 			steps{
-				echo "sudo a2ensite configuracion.conf"
-				echo "systemctl reload apache2"
-
+				echo "ansible-playbook -i ./ deployment.yml"
 			}
 		}
 	}
